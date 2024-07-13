@@ -22,7 +22,7 @@ const networks = chainList
 
 // 3. Create a metadata object
 const metadata = {
-  name: "Hive",
+  name: "Aleo",
   description: "",
   url: "", // origin must match your domain & subdomain
   icons: [""],
