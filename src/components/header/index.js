@@ -12,6 +12,7 @@ import {
   getWriteContractLoad,
   chainList,
   checkNetWork,
+  sign,
 } from "../../utils";
 import { Drawer, notification, Button, Modal, Popover } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,6 +23,7 @@ import { ethers } from "ethers";
 import { useInterval } from "ahooks";
 import { useTranslation } from "react-i18next";
 import { resources } from "../../config";
+import http from "../../request";
 
 const Header = () => {
   const location = useLocation();
@@ -464,6 +466,43 @@ const Header = () => {
       });
   };
 
+  // 获取签名
+
+  const sigFun = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const accounts = await provider.send("eth_requestAccounts", []);
+    // console.log("accounts", accounts);
+    var signer = await provider.getSigner();
+    const msg = "ce4e18284e20952248fb8ac987b61ece";
+    const message = await signer.signMessage(msg);
+    console.log("message", message);
+    loginFun(msg, message);
+  };
+  const loginFun = (msg, sign) => {
+    console.log("http", http);
+    http
+      .get("/NewLogin", {
+        params: {
+          address: address,
+          msg: msg,
+          sign: sign,
+          invitecode: "8UA0DJ",
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.data.token);
+        http.defaults.headers.common["Authorization"] = res.data.data.token;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    console.log("address", address);
+    address && sigFun();
+  }, [address]);
+
   return (
     <div className="flex items-center justify-between pl-5 pr-5 text-white relative _header">
       <div>
@@ -499,7 +538,7 @@ const Header = () => {
           Liquidation
         </Link> */}
 
-        {/* <Popover
+      {/* <Popover
           content={<Community />}
           trigger="click"
           placement="bottom"
@@ -594,13 +633,13 @@ const Header = () => {
           )}
         </button>
         <div
-            className="_hiddenP p-2 ml-2 btnStyle"
-            onClick={() => {
-              setOpenDrawer(true);
-            }}
-          >
-            <img className="w-5" src={require("../../asserts/imgs/menu.png")} />
-          </div>
+          className="_hiddenP p-2 ml-2 btnStyle"
+          onClick={() => {
+            setOpenDrawer(true);
+          }}
+        >
+          <img className="w-5" src={require("../../asserts/imgs/menu.png")} />
+        </div>
       </div>
       <Drawer
         width={"100vw"}

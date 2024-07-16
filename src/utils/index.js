@@ -107,7 +107,6 @@ export const checkNetWork = async () => {
   }
 };
 
-
 export const netWorkNow = async () => {
   if (window.ethereum) {
     const chainId = await window.ethereum.request({ method: "eth_chainId" });
@@ -152,6 +151,7 @@ export async function getContract(
     );
   });
 }
+
 
 /**
  * 写入合约方法
@@ -294,4 +294,5 @@ export async function getWriteContractLoad(
     );
   });
 }
+
 export { chainList } from "./config";

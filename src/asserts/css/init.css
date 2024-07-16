@@ -199,7 +199,7 @@ input {
   text-align: left;
   padding-top: 2px;
   margin-bottom: 20px;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
 }
 .ant-btn {
@@ -336,8 +336,14 @@ input {
   background-color: #e6a62c;
 }
 .ant-btn-default {
-  background: #ff4b01;
+  background: #111;
   color: #fff;
+}
+
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  color: #fff;
+  border-color: #322e2d;
+  background: #111;
 }
 ._backgroundTickets {
   background-image: url("../../asserts/img/number.png");
@@ -611,7 +617,7 @@ input {
 .contentHome {
   min-height: 100vh;
   background-color: #0d0705;
-  padding-top: 60px;
+  padding: 60px 0;
 }
 .content {
   width: 100%;
