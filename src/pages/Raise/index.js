@@ -62,7 +62,13 @@ const Raise = () => {
         data.to_address,
         ethers.utils.parseUnits(amount, decimals)
       )
-        .then((res) => {})
+        .then((res) => {
+          messageApi.open({
+            type: "success",
+            content: "参与成功",
+            duration: 5,
+          });
+        })
         .catch((err) => {
           console.log(err);
         });
