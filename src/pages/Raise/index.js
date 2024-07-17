@@ -98,7 +98,10 @@ const Raise = () => {
         </div>
 
         <div className="text-lg mt-10 mb-4">第六期额度</div>
-        <Progress percent={50} showInfo={false} />
+        <Progress
+          percent={data?.raise.raised / data?.raise.total}
+          showInfo={false}
+        />
         <div className="flex items-center justify-between mt-2">
           <div className="flex items-center">
             <img
@@ -143,7 +146,9 @@ const Raise = () => {
                 })}
               </>
             ) : (
-              <div className="text-center min-h-20 flex items-center justify-center text-sm">无数据</div>
+              <div className="text-center min-h-20 flex items-center justify-center text-sm">
+                无数据
+              </div>
             )}
           </div>
         </div>
