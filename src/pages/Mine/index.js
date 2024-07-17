@@ -45,7 +45,7 @@ const Mine = () => {
 
   const [value, setValue] = useState("");
 
-  const [errContent, setErrContent] = useState('');
+  const [errContent, setErrContent] = useState("");
 
   const [error, setError] = useState(false);
 
@@ -53,15 +53,19 @@ const Mine = () => {
 
   const goWithDraw = () => {
     if (value == "") {
-      setErrContent('请输入正确的数量')
+      setErrContent("请输入正确的数量");
       return setError(true);
     }
-    const re = /^[1-9][0-9]*([\.][0-9]{1,2})?$/
+    const re = /^[0-9]+(\.?[0-9]+)?$/;
+
     if (!re.test(value)) {
-      setErrContent('请输入正确的数量')
+      setErrContent("请输入正确的数量");
       return setError(true);
     }
-    if (value * 1 <= assert.amount * 1) {
+    if (value * 1 > assert.amount * 1) {
+      setErrContent("余额不足");
+      setError(true);
+    } else {
       setError(false);
 
       const coin = assert.name == "USDT" ? "SignUsdt" : "SignAleox";
@@ -82,9 +86,6 @@ const Mine = () => {
           console.log(err);
           setLoading(false);
         });
-    } else {
-      setErrContent('余额不足')
-      setError(true);
     }
   };
 
@@ -92,7 +93,7 @@ const Mine = () => {
     <div className="contentHome">
       <div className="text-white text-left p-5">
         <div className="text-lg mt-2 mb-4">我的资产</div>
-        <div className="border p-4">
+        <div className="border p-4 min-h-52">
           {data?.symbol.map((item, index) => {
             return (
               <div className="mb-4 " key={index}>
@@ -105,7 +106,7 @@ const Mine = () => {
                       onClick={() => {
                         withDraw(item);
                         setValue("");
-                        setError(false)
+                        setError(false);
                       }}
                     >
                       提取
@@ -190,9 +191,7 @@ const Mine = () => {
               最大
             </button>
           </div>
-          {error && (
-            <div className="mt-2 pl-2 text-red-600">{errContent}</div>
-          )}
+          {error && <div className="mt-2 pl-2 text-red-600">{errContent}</div>}
           <div className="flex items-center justify-center">
             <Button
               loading={loading}

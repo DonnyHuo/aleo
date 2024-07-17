@@ -125,18 +125,12 @@ export const netWorkNow = async () => {
  * @returns promise
  */
 export async function getContract(
-  walletProvider,
   contractAddress,
   abi,
   funcName,
   ...params
 ) {
-  const isTrueNetWork = await checkNetWork();
-  const { infuraRpc } = await netWorkNow();
-  const provider =
-    walletProvider && isTrueNetWork
-      ? new ethers.providers.Web3Provider(walletProvider)
-      : new ethers.providers.JsonRpcProvider(infuraRpc);
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, abi, provider);
   return new Promise((resolve, reject) => {
     contract[funcName](...params).then(
@@ -250,16 +244,12 @@ export async function getContractLoad(
  * @returns promise
  */
 export async function getWriteContractLoad(
-  walletProvider,
   contractAddress,
   abi,
   funcName,
   ...params
 ) {
-  const { infuraRpc } = await netWorkNow();
-  const provider = walletProvider
-    ? new ethers.providers.Web3Provider(walletProvider)
-    : new ethers.providers.JsonRpcProvider(infuraRpc);
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, abi, provider);
   const contractWithSigner = contract.connect(provider.getSigner());
   return new Promise((resolve, reject) => {
