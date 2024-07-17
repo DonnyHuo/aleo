@@ -185,7 +185,7 @@ const Header = () => {
         if (res.data.code == 200) {
           // http.defaults.headers.common["Authorization"] = res.data.data.token;
           localStorage.setItem("sign", res.data.data.token);
-          window.location.reload()
+          window.location.reload();
         } else {
           localStorage.setItem("sign", "");
         }
@@ -199,6 +199,10 @@ const Header = () => {
   useEffect(() => {
     address && sigFun();
   }, [address]);
+
+  const change = ()=>{
+    dispatch({ type: "CHANGE_USER", payload: Math.random() });
+  }
 
   return (
     <div className="flex items-center justify-between pl-5 pr-5 text-white relative _header">

@@ -60,7 +60,7 @@ const Raise = () => {
         erc20Abi,
         "transfer",
         data.to_address,
-        ethers.utils.parseUnits(amount, 6)
+        ethers.utils.parseUnits(amount, decimals)
       )
         .then((res) => {})
         .catch((err) => {
@@ -74,7 +74,6 @@ const Raise = () => {
       });
     }
   };
-
   return (
     <div className="contentHome">
       {contextHolder}

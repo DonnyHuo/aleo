@@ -1,5 +1,6 @@
 const initState = {
   address: "",
+  userId: '',
   reModalOpen: false,
   supplyModel: false,
   withdrawModel: false,
