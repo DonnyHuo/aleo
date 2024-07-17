@@ -68,6 +68,7 @@ const Raise = () => {
             content: "参与成功",
             duration: 5,
           });
+          getInfo()
         })
         .catch((err) => {
           console.log(err);
