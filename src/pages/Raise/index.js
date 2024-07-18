@@ -90,8 +90,8 @@ const Raise = () => {
       {contextHolder}
       <div className="text-white text-left p-5">
         <img className="" src={require("../../asserts/imgs/raisebanner.png")} />
-        <div className="text-lg mt-10">参与额度</div>
-        <div className="flex items-center flex-wrap min-h-28">
+        <div className="text-base mt-10">参与额度</div>
+        <div className="flex items-center flex-wrap min-h-28 text-sm">
           {data?.type_list.map((item) => {
             return (
               <div
@@ -107,12 +107,12 @@ const Raise = () => {
           })}
         </div>
 
-        <div className="text-lg mt-10 mb-4">第六期额度</div>
+        <div className="text-base mt-10 mb-4">Aleox</div>
         <Progress
           percent={data?.raise.raised / data?.raise.total}
           showInfo={false}
         />
-        <div className="flex items-center justify-between mt-2">
+        <div className="flex items-center justify-between mt-2 text-sm">
           <div className="flex items-center">
             <img
               className="w-6 mr-2"
@@ -130,7 +130,7 @@ const Raise = () => {
             %
           </div>
         </div>
-        <div className="text-lg mt-10 mb-4">募集</div>
+        <div className="text-base mt-10 mb-4">募集</div>
         <div className="border p-5 text-left">
           <div className="flex items-center justify-between text-sm">
             <span className="w-1/3">募集时间</span>

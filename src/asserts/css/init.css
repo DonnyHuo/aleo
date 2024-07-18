@@ -198,8 +198,8 @@ input {
   color: #fff;
   text-align: left;
   padding-top: 2px;
-  margin-bottom: 20px;
-  font-size: 20px;
+  margin-bottom: 40px;
+  font-size: 16px;
   font-weight: bold;
 }
 .ant-btn {
@@ -626,7 +626,7 @@ input {
   padding-top: 60px;
 }
 ._header {
-  background-color:#1F1F1E;
+  background-color: #1f1f1e;
   position: absolute;
   width: 100%;
 }
@@ -899,11 +899,17 @@ input {
   color: #ffc55f;
 }
 .ant-message {
-  top: 50%!important;
+  top: 50% !important;
 }
 .ant-message .ant-message-notice-wrapper .ant-message-notice-content {
   background-color: #333;
   color: #fff;
+}
+.titleBg {
+  background-image: url("../../asserts/imgs/titleBg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
 }
 
 @media screen and (min-width: 0px) and (max-width: 500px) {
@@ -1272,11 +1278,11 @@ input {
   }
 }
 
-.btnStyle{
-  background: rgba(216,216,216,0);
-  box-shadow: inset 0px 1px 8px 4px rgba(255,255,255,0.1);
+.btnStyle {
+  background: rgba(216, 216, 216, 0);
+  box-shadow: inset 0px 1px 8px 4px rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.25)
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 @media screen and (min-width: 500px) and (max-width: 5000px) {

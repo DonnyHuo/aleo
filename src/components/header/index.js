@@ -278,7 +278,7 @@ const Header = () => {
               </div>
             </Popover>
           ) : (
-            <span onClick={() => open()}>Connect Wallet</span>
+            <span className="text-sm" onClick={() => open()}>连接钱包</span>
           )}
         </button>
         <div
@@ -314,7 +314,7 @@ const Header = () => {
             />
           </div>
         </div>
-        <div className="text-lg Medium">
+        <div className="text-base Medium">
           <p className="pt-5 pb-2 ml-6 text"></p>
           <p className="pt-2 pb-5" onClick={onClose}>
             <Link
@@ -351,7 +351,7 @@ const Header = () => {
               className={`ml-6 mr-6  flex items-center justify-between ${
                 location.pathname === "/liquidation" ? "activeTitle" : ""
               }`}
-              to="/"
+              to="/about"
             >
               <span>关于我们</span>
             </Link>

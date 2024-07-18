@@ -147,8 +147,8 @@ const Mine = () => {
     <div className="contentHome">
       <div className="text-white text-left p-5">
       {contextHolder}
-        <div className="text-lg mt-2 mb-4">我的资产</div>
-        <div className="border p-4 min-h-52">
+        <div className="text-base mt-2 mb-4">我的资产</div>
+        <div className="border text-sm p-4 min-h-52">
           {data?.symbol.map((item, index) => {
             return (
               <div className="mb-4 " key={index}>
@@ -157,7 +157,7 @@ const Mine = () => {
                   <span className="">{item?.amount}</span>
                   {index !== 2 && (
                     <button
-                      className="border py-1 px-4 text-white"
+                      className="border py-1 px-4 text-white text-sm"
                       onClick={() => {
                         withDraw(item);
                         setValue("");
@@ -173,12 +173,12 @@ const Mine = () => {
           })}
         </div>
 
-        <div className="text-lg mt-10 mb-4">个人募集</div>
-        <div className="border px-4 py-6">
+        <div className="text-base mt-10 mb-4">个人募集</div>
+        <div className="border px-4 py-6 text-sm">
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
+            <div className="flex items-center ">
               <img
-                className="w-8 mr-2"
+                className="w-6 mr-2"
                 src={require("../../asserts/imgs/usdt.png")}
               />
               <span>总募集量</span>
@@ -188,7 +188,7 @@ const Mine = () => {
           <div className="flex items-center justify-between mt-5">
             <div className="flex items-center">
               <img
-                className="w-8 mr-2"
+                className="w-6 mr-2"
                 src={require("../../asserts/imgs/usdt.png")}
               />
               <span>预计募集</span>
@@ -198,7 +198,7 @@ const Mine = () => {
           <div className="flex items-center justify-between mt-5">
             <div className="flex items-center">
               <img
-                className="w-8 mr-2"
+                className="w-6 mr-2"
                 src={require("../../asserts/imgs/usdt.png")}
               />
               <span>已完成量</span>
@@ -215,7 +215,7 @@ const Mine = () => {
         footer={false}
         closeIcon={
           <img
-            className="w-7 mt-3 mr-2"
+            className="w-6 mt-2 mr-2"
             src={require("../../asserts/img/closeModal.png")}
             alt=""
           />
@@ -227,7 +227,7 @@ const Mine = () => {
         onCancel={handleCancel}
       >
         <div>
-          <div className="text-right mb-2">
+          <div className="text-right mb-2 text-sm">
             <span>余额：</span>
             <span>{assert?.amount}</span>
             <span className="ml-1">{assert?.name}</span>
@@ -240,7 +240,7 @@ const Mine = () => {
               onChange={(e) => setValue(e.target.value)}
             />
             <button
-              className="text-base"
+              className="text-sm"
               onClick={() => setValue(assert.amount)}
             >
               最大
@@ -250,7 +250,7 @@ const Mine = () => {
           <div className="flex items-center justify-center">
             <Button
               loading={loading}
-              className="mt-5 border text-base px-10 py-2 h-10"
+              className="mt-5 border text-sm px-10 py-2 h-10"
               onClick={() => goWithDraw()}
             >
               提取

@@ -13,16 +13,16 @@ const Footer = () => {
               className="w-5"
               src={require("../../asserts/imgs/icon1.png")}
             />
-            <p className="pt-1">募集</p>
+            <p className="pt-1.5 text-xs">募集</p>
           </Link>
         </div>
         <div className="flex flex-col items-center">
-          <Link to="/" className="flex flex-col items-center">
+          <Link to="/black" className="flex flex-col items-center">
             <img
               className="w-5"
               src={require("../../asserts/imgs/icon2.png")}
             />
-            <p className="pt-1">流动性</p>
+            <p className="pt-1.5 text-xs">黑洞</p>
           </Link>
         </div>
         <div className="flex flex-col items-center">
@@ -31,7 +31,7 @@ const Footer = () => {
               className="w-5"
               src={require("../../asserts/imgs/icon3.png")}
             />
-            <p className="pt-1">算力</p>
+            <p className="pt-1.5 text-xs">算力</p>
           </Link>
         </div>
         <div className="flex flex-col items-center">
@@ -40,7 +40,7 @@ const Footer = () => {
               className="w-5"
               src={require("../../asserts/imgs/icon4.png")}
             />
-            <p className="pt-1">质押</p>
+            <p className="pt-1.5 text-xs">质押</p>
           </Link>
         </div>
         <div className="">
@@ -49,7 +49,7 @@ const Footer = () => {
               className="w-5"
               src={require("../../asserts/imgs/icon5.png")}
             />
-            <p className="pt-1">我的</p>
+            <p className="pt-1.5 text-xs">我的</p>
           </Link>
         </div>
       </div>
