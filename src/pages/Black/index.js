@@ -12,15 +12,15 @@ const Black = () => {
         </div>
         <div className="border px-5 py-8 mt-5">
           <div className="flex items-center justify-between">
-            <div className="w-1/3 text-center">
+            <div className="text-center">
               <p className="text">ALEO算力（CS）</p>
               <p className="mt-4 text-base">32312</p>
             </div>
-            <div className="w-1/3 text-center">
+            <div className="text-center">
               <p className="text">个人销毁</p>
               <p className="mt-4 text-base">1000</p>
             </div>
-            <div className="w-1/3 text-center">
+            <div className="text-center">
               <p className="text">ALEO算力</p>
               <p className="mt-4 text-base">1000</p>
             </div>
