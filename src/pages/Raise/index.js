@@ -46,7 +46,7 @@ const Raise = () => {
   }, address);
 
   const transfer = async (amount) => {
-    console.log('usdtAddress', usdtAddress)
+    console.log("usdtAddress", usdtAddress);
     const decimals = await getContract(usdtAddress, erc20Abi, "decimals");
 
     const usdtBalance = await getContract(
@@ -90,7 +90,9 @@ const Raise = () => {
       {contextHolder}
       <div className="text-white text-left p-5">
         <img className="" src={require("../../asserts/imgs/raisebanner.png")} />
-        <div className="text-base mt-10">参与额度</div>
+        <div className="text-base mt-10 text-center">
+          <span className="titleBg px-10 py-2">参与额度</span>
+        </div>
         <div className="flex items-center flex-wrap min-h-28 text-sm">
           {data?.type_list.map((item) => {
             return (
@@ -107,7 +109,9 @@ const Raise = () => {
           })}
         </div>
 
-        <div className="text-base mt-10 mb-4">Aleox</div>
+        <div className="text-base mt-10 mb-4 text-center">
+          <span className="titleBg px-10 py-2">Aleox</span>
+        </div>
         <Progress
           percent={data?.raise.raised / data?.raise.total}
           showInfo={false}
@@ -130,7 +134,9 @@ const Raise = () => {
             %
           </div>
         </div>
-        <div className="text-base mt-10 mb-4">募集</div>
+        <div className="text-base mt-10 mb-4 text-center">
+          <span className="titleBg px-10 py-2">募集</span>
+        </div>
         <div className="border p-5 text-left">
           <div className="flex items-center justify-between text-sm">
             <span className="w-1/3">募集时间</span>

@@ -2,13 +2,14 @@ import { Modal, Button, message } from "antd";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import http from "../../request";
-import { useWeb3ModalAccount } from "@web3modal/ethers5/react";
+import { useWeb3ModalAccount, useDisconnect, useWeb3Modal } from "@web3modal/ethers5/react";
 import { getWriteContractLoad } from "../../utils";
 import claimRewardAbi from "../../asserts/abi/claimRewards.json";
 
 const Mine = () => {
   const { address } = useWeb3ModalAccount();
-
+  const { disconnect } = useDisconnect();
+  const { open } = useWeb3Modal();
   const [data, setData] = useState({
     symbol: [],
   });
@@ -99,7 +100,6 @@ const Mine = () => {
   };
   const [messageApi, contextHolder] = message.useMessage();
 
-
   const claimFun = (
     _tokenAddress,
     _claimAmount,
@@ -130,7 +130,6 @@ const Mine = () => {
           content: "提取成功",
           duration: 5,
         });
-
       })
       .catch((err) => {
         setLoading(false);
@@ -146,8 +145,10 @@ const Mine = () => {
   return (
     <div className="contentHome">
       <div className="text-white text-left p-5">
-      {contextHolder}
-        <div className="text-base mt-2 mb-4">我的资产</div>
+        {contextHolder}
+        <div className="text-base mt-2 mb-4 text-center">
+          <span className="titleBg px-10 py-2">我的资产</span>
+        </div>
         <div className="border text-sm p-4 min-h-52">
           {data?.symbol.map((item, index) => {
             return (
@@ -173,7 +174,9 @@ const Mine = () => {
           })}
         </div>
 
-        <div className="text-base mt-10 mb-4">个人募集</div>
+        <div className="text-base mt-10 mb-4 text-center">
+          <span className="titleBg px-10 py-2">个人募集</span>
+        </div>
         <div className="border px-4 py-6 text-sm">
           <div className="flex items-center justify-between">
             <div className="flex items-center ">
@@ -207,6 +210,25 @@ const Mine = () => {
           </div>
         </div>
       </div>
+
+      <div className="text-center mt-10">
+        {address ? (
+          <button
+            className="text-white border py-2 px-10"
+            onClick={() => disconnect()}
+          >
+            退出登录
+          </button>
+        ) : (
+          <button
+            className="text-white border py-2 px-10"
+            onClick={() => open()}
+          >
+            连接钱包
+          </button>
+        )}
+      </div>
+
       <Modal
         title={`提取 ${assert?.name}`}
         destroyOnClose={true}
@@ -239,10 +261,7 @@ const Mine = () => {
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
-            <button
-              className="text-sm"
-              onClick={() => setValue(assert.amount)}
-            >
+            <button className="text-sm" onClick={() => setValue(assert.amount)}>
               最大
             </button>
           </div>
