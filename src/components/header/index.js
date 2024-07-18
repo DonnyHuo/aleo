@@ -197,9 +197,9 @@ const Header = () => {
     address && sigFun();
   }, [address]);
 
-  const change = ()=>{
+  const change = () => {
     dispatch({ type: "CHANGE_USER", payload: Math.random() });
-  }
+  };
 
   return (
     <div className="flex items-center justify-between pl-5 pr-5 text-white relative _header">
@@ -253,32 +253,18 @@ const Header = () => {
           }`}
         >
           {address ? (
-            <Popover
-              content={<AccountContent />}
-              trigger="click"
-              placement="bottomRight"
-              arrow={false}
-              color={"#111"}
-              open={openUserAccount}
-              onOpenChange={handleOpenChange}
-              overlayClassName="accountInfo"
-            >
-              <div className="flex items-center justify-between">
-                <img
-                  className="w-5"
-                  src={require("../../asserts/img/connect.png")}
-                  alt=""
-                />
-                <span className="pl-2 _hiddenM">{shortStr(address, 5, 4)}</span>
-                <img
-                  className="w-3 ml-2 mt-0.5 _hiddenM"
-                  src={require("../../asserts/img/walletDown.png")}
-                  alt=""
-                />
-              </div>
-            </Popover>
+            <div className="flex items-center justify-between">
+              <img
+                className="w-5"
+                src={require("../../asserts/img/connect.png")}
+                alt=""
+              />
+              <span className="pl-2">{shortStr(address, 5, 4)}</span>
+            </div>
           ) : (
-            <span className="text-sm" onClick={() => open()}>连接钱包</span>
+            <span className="text-sm" onClick={() => open()}>
+              连接钱包
+            </span>
           )}
         </button>
         <div
