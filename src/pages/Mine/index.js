@@ -1,8 +1,10 @@
-import { Modal, Button } from "antd";
-
+import { Modal, Button, message } from "antd";
+import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import http from "../../request";
 import { useWeb3ModalAccount } from "@web3modal/ethers5/react";
+import { getWriteContractLoad } from "../../utils";
+import claimRewardAbi from "../../asserts/abi/claimRewards.json";
 
 const Mine = () => {
   const { address } = useWeb3ModalAccount();
@@ -79,8 +81,15 @@ const Mine = () => {
           },
         })
         .then((res) => {
-          console.log("res.data.data", res.data.data);
-          setLoading(false);
+          const data = res.data.data;
+
+          claimFun(
+            data.token,
+            data.amount,
+            data.expirationTime,
+            data.nonce,
+            data.signature
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -88,10 +97,56 @@ const Mine = () => {
         });
     }
   };
+  const [messageApi, contextHolder] = message.useMessage();
+
+
+  const claimFun = (
+    _tokenAddress,
+    _claimAmount,
+    _endTime,
+    _nonce,
+    _signature
+  ) => {
+    let overrides = {
+      gasLimit: 100000,
+      gasPrice: ethers.utils.parseUnits("10", "gwei"),
+    };
+    getWriteContractLoad(
+      "0x6CaB4b5404126EC50922F565F165C5225B914588",
+      claimRewardAbi,
+      "claim",
+      _tokenAddress,
+      _claimAmount,
+      _endTime,
+      _nonce,
+      _signature,
+      overrides
+    )
+      .then((res) => {
+        console.log(res);
+        setLoading(false);
+        messageApi.open({
+          type: "success",
+          content: "提取成功",
+          duration: 5,
+        });
+
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+        messageApi.open({
+          type: "error",
+          content: "提取失败",
+          duration: 5,
+        });
+      });
+  };
 
   return (
     <div className="contentHome">
       <div className="text-white text-left p-5">
+      {contextHolder}
         <div className="text-lg mt-2 mb-4">我的资产</div>
         <div className="border p-4 min-h-52">
           {data?.symbol.map((item, index) => {

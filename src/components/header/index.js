@@ -16,13 +16,10 @@ import {
 } from "../../utils";
 import { Drawer, notification, Button, Modal, Popover } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import poolManagerAbi from "../../asserts/abi/poolManagerAbi.json";
-import inviteAbi from "../../asserts/abi/inviteAbi.json";
 import erc20Abi from "../../asserts/abi/erc20Abi.json";
 import { ethers } from "ethers";
 import { useInterval } from "ahooks";
 import { useTranslation } from "react-i18next";
-import { resources } from "../../config";
 import http from "../../request";
 import md5 from "crypto-js/md5";
 

@@ -24,12 +24,17 @@ const Raise = () => {
     raised_order: [],
   });
 
+  const [usdtAddress, setUsdtAddress] = useState(
+    "0x55d398326f99059ff775485246999027b3197955"
+  );
+
   const getInfo = () => {
     http
       .get("/Aleo/RaisePage")
       .then((res) => {
         setData(res.data.data);
         console.log("res.data.data", res.data.data);
+        setUsdtAddress(res.data.data.contract);
       })
       .catch((err) => {
         console.log(err);
@@ -40,9 +45,8 @@ const Raise = () => {
     address && getInfo();
   }, address);
 
-  const usdtAddress = "0x55d398326f99059ff775485246999027b3197955";
-
   const transfer = async (amount) => {
+    console.log('usdtAddress', usdtAddress)
     const decimals = await getContract(usdtAddress, erc20Abi, "decimals");
 
     const usdtBalance = await getContract(
@@ -68,7 +72,7 @@ const Raise = () => {
             content: "参与成功",
             duration: 5,
           });
-          getInfo()
+          getInfo();
         })
         .catch((err) => {
           console.log(err);
