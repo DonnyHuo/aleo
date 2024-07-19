@@ -440,7 +440,7 @@ const Header = () => {
             </a>
           </p>
           <p
-            className="pt-5 pb-5"
+            className="pt-2 pb-5"
             onClick={() => setShowList((state) => (state = !state))}
           >
             <div className="ml-6 mr-6 flex items-center justify-between">
