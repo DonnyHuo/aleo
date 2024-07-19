@@ -22,7 +22,8 @@ http.interceptors.response.use(
     return req;
   },
   (err) => {
-    localStorage.setItem("sign", "");
+    store.dispatch({ type: "CHANGE_TOKEN", payload: '' })
+    console.log('1111')
     return Promise.reject(err);
   }
 );

@@ -226,8 +226,8 @@ const Header = () => {
   };
 
   useEffect(() => {
-    address && IsExists();
-  }, [address]); // eslint-disable-line react-hooks/exhaustive-deps
+    address && !token && IsExists();
+  }, [address, token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleOk = () => {
     setModel(false);
