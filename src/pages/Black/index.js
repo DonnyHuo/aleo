@@ -6,6 +6,7 @@ import {
 } from "@web3modal/ethers5/react";
 import { useState, useEffect } from "react";
 import http from "../../request";
+import { useInterval } from "ahooks";
 
 const Black = () => {
   const { address } = useWeb3ModalAccount();
@@ -25,6 +26,9 @@ const Black = () => {
   useEffect(() => {
     address && getInfo();
   }, address);
+  useInterval(() => {
+    address && getInfo();
+  }, 5000);
   return (
     <div className="contentHome text-white">
       <div className="p-5 text-center text-sm">
@@ -78,7 +82,9 @@ const Black = () => {
                 })}
               </div>
             ) : (
-              <div className="h-20 flex items-center justify-center">无数据</div>
+              <div className="h-20 flex items-center justify-center">
+                无数据
+              </div>
             )}
           </div>
         </div>

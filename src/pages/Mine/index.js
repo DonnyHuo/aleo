@@ -2,9 +2,14 @@ import { Modal, Button, message } from "antd";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import http from "../../request";
-import { useWeb3ModalAccount, useDisconnect, useWeb3Modal } from "@web3modal/ethers5/react";
+import {
+  useWeb3ModalAccount,
+  useDisconnect,
+  useWeb3Modal,
+} from "@web3modal/ethers5/react";
 import { getWriteContractLoad } from "../../utils";
 import claimRewardAbi from "../../asserts/abi/claimRewards.json";
+import { useInterval } from "ahooks";
 
 const Mine = () => {
   const { address } = useWeb3ModalAccount();
@@ -14,7 +19,7 @@ const Mine = () => {
     symbol: [],
   });
 
-  const [raiseData, setRaiseData] = useState()
+  const [raiseData, setRaiseData] = useState();
 
   const [model, setModel] = useState(false);
 
@@ -28,7 +33,7 @@ const Mine = () => {
         console.log(err);
       });
 
-      http
+    http
       .get("/Aleo/UserCenter")
       .then((res) => {
         setData(res.data.data);
@@ -41,6 +46,10 @@ const Mine = () => {
   useEffect(() => {
     address && getInfo();
   }, address);
+
+  useInterval(() => {
+    address && getInfo();
+  }, 5000);
 
   const handleCancel = () => {
     setModel(false);

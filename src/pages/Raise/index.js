@@ -46,7 +46,9 @@ const Raise = () => {
     address && getInfo();
   }, address);
 
-  useInterval(()=>{getInfo()}, 5000)
+  useInterval(() => {
+    address && getInfo();
+  }, 5000);
 
   const transfer = async (amount) => {
     console.log("usdtAddress", usdtAddress);
@@ -132,7 +134,9 @@ const Raise = () => {
           </div>
           <div>
             {data?.raise.raised
-              ? ((data?.raise.raised * 100) / (data?.raise.total * 1)).toFixed(2)
+              ? ((data?.raise.raised * 100) / (data?.raise.total * 1)).toFixed(
+                  2
+                )
               : "--"}
             %
           </div>
