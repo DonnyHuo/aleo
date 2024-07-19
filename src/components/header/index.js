@@ -170,6 +170,11 @@ const Header = () => {
 
   const [invitecode, setInvitecode] = useState("");
 
+  useEffect(()=>{
+    const invitecode = location.search.split('=')[1]
+    address && setInvitecode(invitecode)
+  },[address])
+
   const loginFun = (msg, sign) => {
     http
       .get("/NewLogin", {
