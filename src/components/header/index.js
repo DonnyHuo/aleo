@@ -71,12 +71,8 @@ const Header = () => {
     switch (lang) {
       case "en":
         return "English";
-      case "ko":
-        return "한국인";
-      case "vi":
-        return "Tiếng Việt";
       case "zh":
-        return "简体中文";
+        return "繁體中文";
       default:
         return "English";
     }

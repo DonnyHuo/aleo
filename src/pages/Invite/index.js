@@ -55,9 +55,8 @@ const Invite = () => {
         <div className="absolute bottom-20 w-full">
           {contextHolder}
           <div className="text text-white text-sm px-5 flex items-center justify-between border p-5 m-5">
-            <span>{t("header.invitation")}</span>
-            <div className="flex items-center">
-              <span>{data?.invitecode}</span>
+            <div className="flex items-center justify-between">
+              <div className="w-3/4" style={{overflow: 'clip',  textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{data?.invitecode}</div>
               <img
                 className="w-4 ml-2"
                 src={require("../../asserts/imgs/copy.png")}
