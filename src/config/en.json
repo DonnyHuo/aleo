@@ -42,7 +42,8 @@
   "header": {
     "connectWallet": "Connect Wallet",
     "loginOut": "Logout",
-    "Language": "Language"
+    "Language": "Language",
+    "tips":"The invitation code is incorrect"
   },
   "mine": {
     "asserts": "My Assets",

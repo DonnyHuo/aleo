@@ -42,7 +42,8 @@
   "header": {
     "connectWallet": "连接钱包",
     "loginOut": "退出登录",
-    "Language": "语言"
+    "Language": "语言",
+    "tips":"邀请码不正确"
   },
   "mine": {
     "asserts": "我的资产",

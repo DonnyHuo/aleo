@@ -14,7 +14,7 @@ import {
   checkNetWork,
   sign,
 } from "../../utils";
-import { Drawer, notification, Button, Modal, Popover } from "antd";
+import { Drawer, notification, Button, Modal, Popover, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import erc20Abi from "../../asserts/abi/erc20Abi.json";
 import { ethers } from "ethers";
@@ -28,19 +28,12 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const logoIcon = require("../../asserts/imgs/logo.png");
   const { address, chainId, isConnected } = useWeb3ModalAccount();
 
-  const { walletProvider } = useWeb3ModalProvider();
-
   const { open } = useWeb3Modal();
-
-  // const { switchNetwork } = useSwitchNetwork();
-
-  // useEffect(() => {
-  //   isConnected && chainId && switchNetwork(chainList.filter(list=> list.chainId == chainId)[0].chainId);
-  // }, [chainId, isConnected]);
 
   const [openLang, setOpenLang] = useState(false);
   const langOpenChange = (value) => {
@@ -71,58 +64,6 @@ const Header = () => {
     (state) => state.reModalOpen,
     (pre, next) => pre === next
   );
-
-  const [openUserAccount, setOpenUserAccount] = useState(false);
-
-  const [api, contextHolder] = notification.useNotification({
-    placement: "topRight",
-    duration: 3,
-    top: openUserAccount ? 120 : 0,
-    maxCount: 10,
-    zIndex: 100000,
-  });
-
-  const handleOpenChange = (newOpen) => {
-    setOpenUserAccount(newOpen);
-  };
-
-  const { disconnect } = useDisconnect();
-
-  const AccountContent = () => {
-    const copy = (address) => {
-      api["success"]({ message: "复制成功" });
-      navigator.clipboard.writeText(address);
-    };
-    return (
-      <div className="font-medium">
-        {contextHolder}
-        <div className="flex items-center justify-between border-zinc-800 cursor-pointer">
-          <div className="flex items-center" onClick={() => copy(address)}>
-            <img
-              className="w-7"
-              src={require("../../asserts/imgs/connect.png")}
-              alt=""
-            />
-            <span className="px-2">{shortStr(address)}</span>
-
-            <img
-              className="w-4 cursor-pointer"
-              src={require("../../asserts/imgs/copy.png")}
-              alt=""
-            />
-          </div>
-          <div
-            className="rounded-xl _background3 p-2 flex items-center justify-center closeWallet"
-            onClick={() => {
-              setOpenUserAccount(false);
-              disconnect();
-              localStorage.setItem("sign", "");
-            }}
-          ></div>
-        </div>
-      </div>
-    );
-  };
 
   const [showList, setShowList] = useState(false);
 
@@ -161,7 +102,7 @@ const Header = () => {
                     setOpenLang(false);
                     setCurrentLang(list);
                     i18n.changeLanguage(list);
-                    setOpenDrawer(false)
+                    setOpenDrawer(false);
                     window.localStorage.setItem("lang", list);
                   }}
                 >
@@ -174,7 +115,6 @@ const Header = () => {
                   )}
                 </div>
               </div>
-              
             </div>
           );
         })}
@@ -234,6 +174,8 @@ const Header = () => {
       loginFun(message, result);
     }
   };
+  const invitecode = useLocation().search.split("=")[1];
+
   const loginFun = (msg, sign) => {
     http
       .get("/NewLogin", {
@@ -241,14 +183,22 @@ const Header = () => {
           address: address.toLowerCase(),
           msg: msg,
           sign: sign,
-          invitecode: "8UA0DJ",
+          invitecode,
         },
       })
       .then((res) => {
         if (res.data.code == 200) {
           // http.defaults.headers.common["Authorization"] = res.data.data.token;
-          localStorage.setItem("sign", res.data.data.token);
-          window.location.reload();
+          if (res.data.data.token) {
+            localStorage.setItem("sign", res.data.data.token);
+            window.location.reload();
+          } else {
+            messageApi.open({
+              type: "error",
+              content: t("header.tips"),
+              duration: 5,
+            });
+          }
         } else {
           localStorage.setItem("sign", "");
         }
@@ -275,6 +225,8 @@ const Header = () => {
           <span className="pl-2 text-xl">Aleo</span>
         </Link>
       </div>
+      {contextHolder}
+
       <div className="flex items-center">
         {isConnected && (
           <button
