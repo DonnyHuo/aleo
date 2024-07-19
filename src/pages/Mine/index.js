@@ -259,7 +259,7 @@ const Mine = () => {
         closeIcon={
           <img
             className="w-6 mt-2 mr-2"
-            src={require("../../asserts/img/closeModal.png")}
+            src={require("../../asserts/imgs/closeModal.png")}
             alt=""
           />
         }

@@ -92,14 +92,14 @@ const Header = () => {
           <div className="flex items-center" onClick={() => copy(address)}>
             <img
               className="w-7"
-              src={require("../../asserts/img/connect.png")}
+              src={require("../../asserts/imgs/connect.png")}
               alt=""
             />
             <span className="px-2">{shortStr(address)}</span>
 
             <img
               className="w-4 cursor-pointer"
-              src={require("../../asserts/img/copy.png")}
+              src={require("../../asserts/imgs/copy.png")}
               alt=""
             />
           </div>
@@ -227,7 +227,7 @@ const Header = () => {
               <>
                 <img
                   className="w-5 _hiddenP"
-                  src={require("../../asserts/img/warning.png")}
+                  src={require("../../asserts/imgs/warning.png")}
                   alt=""
                 />
 
@@ -256,7 +256,7 @@ const Header = () => {
             <div className="flex items-center justify-between">
               <img
                 className="w-5"
-                src={require("../../asserts/img/connect.png")}
+                src={require("../../asserts/imgs/connect.png")}
                 alt=""
               />
               <span className="pl-2">{shortStr(address, 5, 4)}</span>
@@ -294,7 +294,7 @@ const Header = () => {
           <div className="p-2 btnStyle">
             <img
               className="w-4"
-              src={require("../../asserts/img/drawerClose.png")}
+              src={require("../../asserts/imgs/drawerClose.png")}
               onClick={onClose}
               alt=""
             />
