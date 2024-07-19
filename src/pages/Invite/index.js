@@ -12,6 +12,7 @@ const Invite = () => {
   const { t } = useTranslation();
 
   const address = useSelector((state) => state.address);
+  const token = useSelector((state) => state.token);
 
   const [data, setData] = useState();
   const getInfo = () => {
@@ -25,8 +26,8 @@ const Invite = () => {
       });
   };
   useEffect(() => {
-    address && getInfo();
-  }, [address]);
+    address && token &&  getInfo();
+  }, [address, token]);
   useInterval(() => {
     address && getInfo();
   }, 5000);
@@ -52,10 +53,10 @@ const Invite = () => {
         </div>
         <div className="absolute bottom-20 w-full">
           {contextHolder}
-          <div className="text text-white text-sm px-5 flex items-center justify-between border p-5 m-5">
+          <div className="text text-white text-sm px-5 flex items-center justify-between border p-5 m-5 h-12">
             <div className="flex items-center justify-between">
               <div
-                className="w-3/4"
+                className="w-4/5"
                 style={{
                   overflow: "clip",
                   textOverflow: "ellipsis",
@@ -65,7 +66,7 @@ const Invite = () => {
                 {data?.invitecode}
               </div>
               <img
-                className="w-4 ml-2"
+                className="w-4 ml-2 absolute right-10"
                 src={require("../../asserts/imgs/copy.png")}
                 onClick={() => {
                   copyUrl(data?.invitecode);

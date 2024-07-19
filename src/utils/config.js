@@ -29,13 +29,13 @@ export const chainList = [
   //   poolManager: "0x1532214641bF5FFE476EFbd7cEb3B36aB37Cc952",
   //   infuraRpc: "https://sepolia.infura.io/v3/f9eae046939d4b969a42a377d109d17a"
   // },
-  {
-    chainId: 56,
-    name: "BNB Smart Chain Mainnet",
-    currency: "BNB",
-    url: require("../asserts/imgs/BNB.png"),
-    explorerUrl: "https://bscscan.com",
-    rpcUrl: "https://bsc-dataseed.bnbchain.org",
-    infuraRpc: "https://bsc-dataseed.bnbchain.org"
-  },
+  // {
+  //   chainId: 56,
+  //   name: "BNB Smart Chain Mainnet",
+  //   currency: "BNB",
+  //   url: require("../asserts/imgs/BNB.png"),
+  //   explorerUrl: "https://bscscan.com",
+  //   rpcUrl: "https://bsc-dataseed.bnbchain.org",
+  //   infuraRpc: "https://bsc-dataseed.bnbchain.org"
+  // },
 ];

@@ -18,10 +18,6 @@ const Header = () => {
   const logoIcon = require("../../asserts/imgs/logo.png");
 
   const [openLang, setOpenLang] = useState(false);
-  const langOpenChange = (value) => {
-    setOpenLang(value);
-  };
-  
 
   const [currentLang, setCurrentLang] = useState(i18n.language);
 
@@ -29,14 +25,20 @@ const Header = () => {
 
   const getChainId = async () => {
     const chainId = await window.ethereum.request({ method: "eth_chainId" });
-    console.log('chainId', chainId*1)
-    if (chainId*1 !== 56) {
-      console.log('1111')
+    if (chainId * 1 !== "0x38") {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [
+          {
+            chainId: "0x38",
+          },
+        ],
+      });
     }
   };
-  useEffect(()=>{
-    getChainId()
-  },[]) 
+  useEffect(() => {
+    getChainId();
+  }, []);
 
   const showDrawer = () => {
     setOpenDrawer(true);
