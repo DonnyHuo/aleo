@@ -169,7 +169,7 @@ const Mine = () => {
   };
 
   const copyUrl = (code) => {
-    const url = `${window.location.origin}?invitecode=${code}`
+    const url = `${window.location.origin}/mine?invitecode=${code}`
     copy(url);
     message.success(t('header.copyS'));
   };
