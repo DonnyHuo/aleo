@@ -1,5 +1,4 @@
 import Header from "./components/header";
-import Footer from "./components/footer";
 
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -9,6 +8,8 @@ import Mine from "./pages/Mine";
 import Raise from "./pages/Raise";
 import About from "./pages/About";
 import Black from "./pages/Black";
+import Invite from "./pages/Invite";
+import Team from "./pages/Team";
 
 function App() {
 
@@ -20,11 +21,12 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/mine" element={<Mine />}></Route>
           <Route path="/raise" element={<Raise />}></Route>
-          <Route path="/About" element={<About />}></Route>
-          <Route path="/Black" element={<Black />}></Route>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/black" element={<Black />}></Route>
+          <Route path="/invite" element={<Invite />}></Route>
+          <Route path="/team" element={<Team />}></Route>
         </Routes>
       </div>
-      <Footer />
     </BrowserRouter>
   );
 }

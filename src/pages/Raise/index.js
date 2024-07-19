@@ -45,7 +45,7 @@ const Raise = () => {
 
   useEffect(() => {
     address && getInfo();
-  }, address);
+  }, [address]);
 
   useInterval(() => {
     address && getInfo();

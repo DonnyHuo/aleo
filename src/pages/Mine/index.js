@@ -11,7 +11,7 @@ import { getWriteContractLoad } from "../../utils";
 import claimRewardAbi from "../../asserts/abi/claimRewards.json";
 import { useInterval } from "ahooks";
 import { useTranslation } from "react-i18next";
-import copy from "copy-to-clipboard";
+
 
 const Mine = () => {
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ const Mine = () => {
   };
   useEffect(() => {
     address && getInfo();
-  }, address);
+  }, [address]);
 
   useInterval(() => {
     address && getInfo();
@@ -168,10 +168,6 @@ const Mine = () => {
       });
   };
 
-  const copyUrl = (code) => {
-    copy(code);
-    message.success(t('header.copyS'));
-  };
   return (
     <div className="contentHome">
       <div className="text-white text-left p-5">
@@ -238,19 +234,6 @@ const Mine = () => {
             </div>
             <span>{raiseData?.raise.raised}</span>
           </div>
-        </div>
-      </div>
-      <div className="text text-white text-sm px-5 flex items-center justify-between border p-5 m-5">
-        <span>{t('header.invitation')}</span>
-        <div className="flex items-center">
-          <span>{data.invitecode}</span>
-          <img
-            className="w-4 ml-2"
-            src={require("../../asserts/imgs/copy.png")}
-            onClick={() => {
-              copyUrl(data.invitecode);
-            }}
-          />
         </div>
       </div>
 

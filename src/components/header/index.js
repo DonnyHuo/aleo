@@ -122,11 +122,6 @@ const Header = () => {
     );
   };
 
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    setIsMobile(window.innerWidth <= 768);
-  }, [window.innerWidth]);
-
   const Ot = (f) => {
     let a = [];
     for (let u = 0; u < f.length; u++) {
@@ -212,14 +207,12 @@ const Header = () => {
       });
   };
 
-  useEffect(() => {
-    window.ethereum.on("accountsChanged", () => {
-      window.localStorage.setItem("sign", "");
-      setTimeout(() => {
-        window.location.reload()
-      }, 500);
-    });
-  }, [address]);
+  // useEffect(() => {
+  //   window.ethereum.on("accountsChanged", () => {
+  //     window.localStorage.setItem("sign", "");
+  //     address && IsExists()
+  //   });
+  // }, [address]);
 
   const change = () => {
     dispatch({ type: "CHANGE_USER", payload: Math.random() });
@@ -248,7 +241,7 @@ const Header = () => {
 
   useEffect(() => {
     address && IsExists();
-  }, address);
+  }, [address]);
 
   const handleOk = () => {
     setModel(false);
@@ -402,59 +395,172 @@ const Header = () => {
           <p className="pt-2 pb-5" onClick={onClose}>
             <Link
               className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/dashboard" ? "activeTitle" : ""
+                location.pathname === "/" ? "activeTitle" : ""
               }`}
               to="/"
             >
-              <span> {t("navigate.navigate1")}</span>
+              <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={
+                    location.pathname === "/"
+                      ? require("../../asserts/imgs/homeActive.png")
+                      : require("../../asserts/imgs/home.png")
+                  }
+                />
+                <span className="ml-2 pt-1">{t("navigate.navigate1")}</span>
+              </div>
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
             <Link
               className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/market" ? "activeTitle" : ""
+                location.pathname === "/raise" ? "activeTitle" : ""
               }`}
               to="/raise"
             >
-              <span> {t("navigate.navigate2")}</span>
+              <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={
+                    location.pathname === "/raise"
+                      ? require("../../asserts/imgs/raiseActive.png")
+                      : require("../../asserts/imgs/raise.png")
+                  }
+                />
+                <span className="ml-2 pt-1">{t("navigate.navigate2")}</span>
+              </div>
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
             <Link
               className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/liquidation" ? "activeTitle" : ""
+                location.pathname === "/mine" ? "activeTitle" : ""
               }`}
               to="/mine"
             >
-              <span> {t("navigate.navigate3")}</span>
+              <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={
+                    location.pathname === "/mine"
+                      ? require("../../asserts/imgs/assetsActive.png")
+                      : require("../../asserts/imgs/assets.png")
+                  }
+                />
+                <span className="ml-2">{t("navigate.navigate3")}</span>
+              </div>
+            </Link>
+          </p>
+          <p className="pt-2 pb-5" onClick={onClose}>
+            <a className="ml-6 mr-6 block" href="https://aleo.org" target="_black">
+            <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={require("../../asserts/imgs/website.png")}
+                />
+                <span className="ml-2"> {t("navigate.navigate5")}</span>
+              </div>
+            </a>
+          </p>
+          <p className="pt-2 pb-5" onClick={onClose}>
+            <Link
+              className={`ml-6 mr-6  flex items-center justify-between ${
+                location.pathname === "/power" ? "activeTitle" : ""
+              }`}
+              to="/power"
+            >
+              <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={
+                    location.pathname === "/power"
+                      ? require("../../asserts/imgs/powerActive.png")
+                      : require("../../asserts/imgs/power.png")
+                  }
+                />
+                <span className="ml-2">{t("navigate.navigate8")}</span>
+              </div>
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
             <Link
               className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/liquidation" ? "activeTitle" : ""
+                location.pathname === "/pledge" ? "activeTitle" : ""
               }`}
-              to="/about"
+              to="/pledge"
             >
-              <span> {t("navigate.navigate4")}</span>
+              <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={
+                    location.pathname === "/pledge"
+                      ? require("../../asserts/imgs/pledgeActive.png")
+                      : require("../../asserts/imgs/pledge.png")
+                  }
+                />
+                <span className="ml-2">{t("navigate.navigate9")}</span>
+              </div>
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
-            <a className="ml-6 mr-6" href="https://aleo.org" target="_black">
-              <span> {t("navigate.navigate5")}</span>
-            </a>
-          </p>
-          <p className="pt-2 pb-5" onClick={onClose}>
             <a
-              className="ml-6 mr-6"
+              className="ml-6 mr-6 block"
               href="https://t.me/AleoXClubzGroup"
               target="_black"
             >
-              <span>{t("navigate.navigate6")}</span>
+             <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={require("../../asserts/imgs/server.png")}
+                />
+                <span className="ml-2 pt-1"> {t("navigate.navigate6")}</span>
+              </div>
             </a>
           </p>
+          <p className="pt-2 pb-5" onClick={onClose}>
+            <Link
+              className={`ml-6 mr-6  flex items-center justify-between ${
+                location.pathname === "/invite" ? "activeTitle" : ""
+              }`}
+              to="/invite"
+            >
+              <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={
+                    location.pathname === "/invite"
+                      ? require("../../asserts/imgs/inviteActive.png")
+                      : require("../../asserts/imgs/invite.png")
+                  }
+                />
+                <span className="ml-2">{t("navigate.navigate7")}</span>
+              </div>
+            </Link>
+          </p>
+          <p className="pt-2 pb-5" onClick={onClose}>
+            <Link
+              className={`ml-6 mr-6  flex items-center justify-between ${
+                location.pathname === "/about" ? "activeTitle" : ""
+              }`}
+              to="/about"
+            >
+              <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={
+                    location.pathname === "/about"
+                      ? require("../../asserts/imgs/aboutActive.png")
+                      : require("../../asserts/imgs/about.png")
+                  }
+                />
+                <span className="ml-2"> {t("navigate.navigate4")}</span>
+              </div>
+            </Link>
+          </p>
+
           <p
-            className="pt-2 pb-5"
+            className="pt-8 pb-5"
             onClick={() => setShowList((state) => (state = !state))}
           >
             <div className="ml-6 mr-6 flex items-center justify-between">

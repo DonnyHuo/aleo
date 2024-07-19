@@ -764,7 +764,7 @@ input {
   border-radius: 10px;
 }
 .activeTitle {
-  color: #ff4b01;
+  color: #22f0a8;
 }
 .listBg {
   background: #0e0e0e;
@@ -824,10 +824,19 @@ input {
   color: #fff;
 }
 .titleBg {
-  background-image: url('../../asserts/imgs/titleBg.png');
+  background-image: url("../../asserts/imgs/titleBg.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
+}
+.inviteContent {
+  width: 100%;
+  height: 100vh;
+  padding-top: 60px;
+  background-image: url("../../asserts/imgs/inviteBg.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position:  center 60px;
 }
 
 @media screen and (min-width: 0px) and (max-width: 500px) {

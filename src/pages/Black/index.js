@@ -28,7 +28,7 @@ const Black = () => {
   };
   useEffect(() => {
     address && getInfo();
-  }, address);
+  }, [address]);
   useInterval(() => {
     address && getInfo();
   }, 5000);
