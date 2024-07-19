@@ -41,8 +41,9 @@ const Black = () => {
         />
         <div className="mt-10 mb-5 text-base">
           <span className=" titleBg px-10 py-2">
-            {t("black.title")}：{data?.total_amount}
+            {t("black.title")}
           </span>
+          <p className="mt-2">{data?.total_amount}</p>
         </div>
         <div className="border px-5 py-8 mt-5">
           <div className="flex items-center justify-around">
