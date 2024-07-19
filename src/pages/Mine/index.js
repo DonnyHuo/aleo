@@ -10,8 +10,11 @@ import {
 import { getWriteContractLoad } from "../../utils";
 import claimRewardAbi from "../../asserts/abi/claimRewards.json";
 import { useInterval } from "ahooks";
+import { useTranslation } from "react-i18next";
+
 
 const Mine = () => {
+  const { t } = useTranslation();
   const { address } = useWeb3ModalAccount();
   const { disconnect } = useDisconnect();
   const { open } = useWeb3Modal();
@@ -37,7 +40,6 @@ const Mine = () => {
       .get("/Aleo/UserCenter")
       .then((res) => {
         setData(res.data.data);
-        console.log("res.data.data", res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -76,17 +78,17 @@ const Mine = () => {
 
   const goWithDraw = () => {
     if (value == "") {
-      setErrContent("请输入正确的数量");
+      setErrContent(t('mine.tips1'));
       return setError(true);
     }
     const re = /^[0-9]+(\.?[0-9]+)?$/;
 
     if (!re.test(value)) {
-      setErrContent("请输入正确的数量");
+      setErrContent(t('mine.tips1'));
       return setError(true);
     }
     if (value * 1 > assert.amount * 1) {
-      setErrContent("余额不足");
+      setErrContent(t('noBalance'));
       setError(true);
     } else {
       setError(false);
@@ -102,14 +104,15 @@ const Mine = () => {
           },
         })
         .then((res) => {
-          const data = res.data.data;
+          const dataS = res.data.data;
 
           claimFun(
-            data.token,
-            data.amount,
-            data.expirationTime,
-            data.nonce,
-            data.signature
+            data.ClaimContract,
+            dataS.token,
+            dataS.amount,
+            dataS.expirationTime,
+            dataS.nonce,
+            dataS.signature
           );
         })
         .catch((err) => {
@@ -121,6 +124,7 @@ const Mine = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const claimFun = (
+    contractAddress,
     _tokenAddress,
     _claimAmount,
     _endTime,
@@ -132,7 +136,7 @@ const Mine = () => {
     //   gasPrice: ethers.utils.parseUnits("10", "gwei"),
     // };
     getWriteContractLoad(
-      "0x6CaB4b5404126EC50922F565F165C5225B914588",
+      contractAddress,
       claimRewardAbi,
       "claim",
       _tokenAddress,
@@ -148,7 +152,7 @@ const Mine = () => {
         setModel(false)
         messageApi.open({
           type: "success",
-          content: "提取成功",
+          content: t('withDrawS'),
           duration: 5,
         });
       })
@@ -157,7 +161,7 @@ const Mine = () => {
         console.log(err);
         messageApi.open({
           type: "error",
-          content: "提取失败",
+          content: t('withDrawF'),
           duration: 5,
         });
       });
@@ -168,7 +172,7 @@ const Mine = () => {
       <div className="text-white text-left p-5">
         {contextHolder}
         <div className="text-base mt-2 mb-4 text-center">
-          <span className="titleBg px-10 py-2">我的资产</span>
+          <span className="titleBg px-10 py-2">{t('mine.asserts')}</span>
         </div>
         <div className="border text-sm p-4 min-h-52">
           {data?.symbol.map((item, index) => {
@@ -186,7 +190,7 @@ const Mine = () => {
                         setError(false);
                       }}
                     >
-                      提取
+                      {t('mine.withDraw')}
                     </button>
                   )}
                 </div>
@@ -196,7 +200,7 @@ const Mine = () => {
         </div>
 
         <div className="text-base mt-10 mb-4 text-center">
-          <span className="titleBg px-10 py-2">个人募集</span>
+          <span className="titleBg px-10 py-2"> {t('mine.raise')}</span>
         </div>
         <div className="border px-4 py-6 text-sm">
           <div className="flex items-center justify-between">
@@ -205,7 +209,7 @@ const Mine = () => {
                 className="w-6 mr-2"
                 src={require("../../asserts/imgs/usdt.png")}
               />
-              <span>总募集量</span>
+              <span> {t('mine.total')}</span>
             </div>
             <span>{raiseData?.raise.total}</span>
           </div>
@@ -215,7 +219,7 @@ const Mine = () => {
                 className="w-6 mr-2"
                 src={require("../../asserts/imgs/usdt.png")}
               />
-              <span>预计募集</span>
+              <span>{t('mine.expected')}</span>
             </div>
             <span>{raiseData?.raise.total}</span>
           </div>
@@ -225,7 +229,7 @@ const Mine = () => {
                 className="w-6 mr-2"
                 src={require("../../asserts/imgs/usdt.png")}
               />
-              <span>已完成量</span>
+              <span>{t('mine.finish')}</span>
             </div>
             <span>{raiseData?.raise.raised}</span>
           </div>
@@ -238,20 +242,20 @@ const Mine = () => {
             className="text-white border py-2 px-10"
             onClick={() => disconnect()}
           >
-            退出登录
+            {t('header.loginOut')}
           </button>
         ) : (
           <button
             className="text-white border py-2 px-10"
             onClick={() => open()}
           >
-            连接钱包
+             {t('header.connectWallet')}
           </button>
         )}
       </div>
 
       <Modal
-        title={`提取 ${assert?.name}`}
+        title={`${t('mine.withDraw')} ${assert?.name}`}
         destroyOnClose={true}
         centered
         maskClosable={false}
@@ -271,7 +275,7 @@ const Mine = () => {
       >
         <div>
           <div className="text-right mb-2 text-sm">
-            <span>余额：</span>
+            <span> {t('mine.balance')}：</span>
             <span>{assert?.amount}</span>
             <span className="ml-1">{assert?.name}</span>
           </div>
@@ -283,7 +287,7 @@ const Mine = () => {
               onChange={(e) => setValue(e.target.value)}
             />
             <button className="text-sm" onClick={() => setValue(assert.amount)}>
-              最大
+            {t('mine.max')}
             </button>
           </div>
           {error && <div className="mt-2 pl-2 text-red-600">{errContent}</div>}
@@ -293,7 +297,7 @@ const Mine = () => {
               className="mt-5 border text-sm px-10 py-2 h-10"
               onClick={() => goWithDraw()}
             >
-              提取
+              {t('mine.withDraw')}
             </Button>
           </div>
         </div>

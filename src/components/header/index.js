@@ -22,6 +22,7 @@ import { useInterval } from "ahooks";
 import { useTranslation } from "react-i18next";
 import http from "../../request";
 import md5 from "crypto-js/md5";
+import { resources } from "../../config";
 
 const Header = () => {
   const location = useLocation();
@@ -40,6 +41,13 @@ const Header = () => {
   // useEffect(() => {
   //   isConnected && chainId && switchNetwork(chainList.filter(list=> list.chainId == chainId)[0].chainId);
   // }, [chainId, isConnected]);
+
+  const [openLang, setOpenLang] = useState(false);
+  const langOpenChange = (value) => {
+    setOpenLang(value);
+  };
+
+  const [currentLang, setCurrentLang] = useState(i18n.language);
 
   const selectNetworkIcon = (chainId) => {
     return chainList.filter((list) => list.chainId == chainId)[0];
@@ -112,6 +120,80 @@ const Header = () => {
             }}
           ></div>
         </div>
+      </div>
+    );
+  };
+
+  const [showList, setShowList] = useState(false);
+
+  const showLang = (lang) => {
+    switch (lang) {
+      case "en":
+        return "English";
+      case "ko":
+        return "한국인";
+      case "vi":
+        return "Tiếng Việt";
+      case "zh":
+        return "简体中文";
+      default:
+        return "English";
+    }
+  };
+
+  const LangList = () => {
+    const langArr = [];
+    for (let key in resources) {
+      langArr.push(key);
+    }
+
+    return (
+      <div className="cursor-pointer">
+        {langArr.map((list, index) => {
+          return (
+            <div key={list}>
+              {!isMobile ? (
+                <div className="text-center _langList">
+                  <button
+                    className={`rounded-md px-2 h-8 m-2 ${
+                      i18n.language == list && "active"
+                    }`}
+                    onClick={() => {
+                      setOpenLang(false);
+                      setCurrentLang(list);
+                      i18n.changeLanguage(list);
+                      window.localStorage.setItem("lang", list);
+                    }}
+                  >
+                    {showLang(list)}
+                  </button>
+                </div>
+              ) : (
+                <div className="text-left _text text-sm">
+                  <div
+                    className={
+                      "flex item-center justify-between rounded-md px-4 h-8 m-2"
+                    }
+                    onClick={() => {
+                      setOpenLang(false);
+                      setCurrentLang(list);
+                      i18n.changeLanguage(list);
+                      window.localStorage.setItem("lang", list);
+                    }}
+                  >
+                    <span>{showLang(list)}</span>
+                    {i18n.language == list && (
+                      <img
+                        className="w-5 h-5"
+                        src={require("../../asserts/imgs/selected.png")}
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -263,7 +345,7 @@ const Header = () => {
             </div>
           ) : (
             <span className="text-sm" onClick={() => open()}>
-              连接钱包
+              {t("header.connectWallet")}
             </span>
           )}
         </button>
@@ -309,7 +391,7 @@ const Header = () => {
               }`}
               to="/"
             >
-              <span>首页</span>
+              <span> {t("navigate.navigate1")}</span>
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
@@ -319,7 +401,7 @@ const Header = () => {
               }`}
               to="/raise"
             >
-              <span>募集</span>
+              <span> {t("navigate.navigate2")}</span>
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
@@ -329,7 +411,7 @@ const Header = () => {
               }`}
               to="/mine"
             >
-              <span>我的</span>
+              <span> {t("navigate.navigate3")}</span>
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
@@ -339,24 +421,41 @@ const Header = () => {
               }`}
               to="/about"
             >
-              <span>关于我们</span>
+              <span> {t("navigate.navigate4")}</span>
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
-            <a  className="ml-6 mr-6" href="https://aleo.org" target="_black">
-              <span>官网</span>
+            <a className="ml-6 mr-6" href="https://aleo.org" target="_black">
+              <span> {t("navigate.navigate5")}</span>
             </a>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
-            <Link
-              className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/liquidation" ? "activeTitle" : ""
-              }`}
-              to="/"
+            <a
+              className="ml-6 mr-6"
+              href="https://t.me/AleoXClubzGroup"
+              target="_black"
             >
-              <span>客服</span>
-            </Link>
+
+            <span>{t("navigate.navigate6")}</span>
+            </a>
           </p>
+          <p
+            className="pt-5 pb-5"
+            onClick={() => setShowList((state) => (state = !state))}
+          >
+            <div className="ml-6 mr-6 flex items-center justify-between">
+              <span>{t("header.Language")}</span>
+              <div className="flex items-center">
+                <span className="text-sm _text">{showLang(currentLang)}</span>
+                <img
+                  className={`w-4 ml-1 ${showList && "rotate-90"}`}
+                  src={require("../../asserts/imgs/drawerRight.png")}
+                  alt=""
+                />
+              </div>
+            </div>
+          </p>
+          {showList && <LangList />}
         </div>
       </Drawer>
     </div>

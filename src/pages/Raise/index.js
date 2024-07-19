@@ -9,8 +9,10 @@ import {
 import { getWriteContractLoad, getContract } from "../../utils";
 import erc20Abi from "../../asserts/abi/erc20Abi.json";
 import { useInterval } from "ahooks";
+import { useTranslation } from "react-i18next";
 
 const Raise = () => {
+  const { t } = useTranslation();
   const { address } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
@@ -34,7 +36,6 @@ const Raise = () => {
       .get("/Aleo/RaisePage")
       .then((res) => {
         setData(res.data.data);
-        console.log("res.data.data", res.data.data);
         setUsdtAddress(res.data.data.contract);
       })
       .catch((err) => {
@@ -85,7 +86,7 @@ const Raise = () => {
     } else {
       messageApi.open({
         type: "error",
-        content: "余额不足",
+        content: t('noBalance'),
         duration: 5,
       });
     }
@@ -96,7 +97,7 @@ const Raise = () => {
       <div className="text-white text-left p-5">
         <img className="" src={require("../../asserts/imgs/raisebanner.png")} />
         <div className="text-base mt-10 text-center">
-          <span className="titleBg px-10 py-2">参与额度</span>
+          <span className="titleBg px-10 py-2">{t("raise.title1")}</span>
         </div>
         <div className="flex items-center flex-wrap min-h-28 text-sm">
           {data?.type_list.map((item) => {
@@ -142,13 +143,13 @@ const Raise = () => {
           </div>
         </div>
         <div className="text-base mt-10 mb-4 text-center">
-          <span className="titleBg px-10 py-2">募集</span>
+          <span className="titleBg px-10 py-2">{t("raise.title2")}</span>
         </div>
         <div className="border p-5 text-left">
           <div className="flex items-center justify-between text-sm">
-            <span className="w-1/3">募集时间</span>
-            <span className="w-1/3 text-center">募集数量</span>
-            <span className="w-1/3 text-right">募集状态</span>
+            <span className="w-1/3">{t("raise.time")}</span>
+            <span className="w-1/3 text-center">{t("raise.amount")}</span>
+            <span className="w-1/3 text-right">{t("raise.status")}</span>
           </div>
           <div className="mt-4 text text-left">
             {data?.raised_order.length > 0 ? (
@@ -170,7 +171,7 @@ const Raise = () => {
               </>
             ) : (
               <div className="text-center min-h-20 flex items-center justify-center text-sm">
-                无数据
+                {t('black.noData')}
               </div>
             )}
           </div>

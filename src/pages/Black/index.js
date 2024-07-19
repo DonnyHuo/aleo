@@ -7,8 +7,11 @@ import {
 import { useState, useEffect } from "react";
 import http from "../../request";
 import { useInterval } from "ahooks";
+import { useTranslation } from "react-i18next";
 
 const Black = () => {
+  const { t } = useTranslation();
+
   const { address } = useWeb3ModalAccount();
 
   const [data, setData] = useState();
@@ -38,17 +41,17 @@ const Black = () => {
         />
         <div className="mt-10 mb-5 text-base">
           <span className=" titleBg px-10 py-2">
-            全网黑洞销毁总量：{data?.total_amount}
+            {t("black.title")}：{data?.total_amount}
           </span>
         </div>
         <div className="border px-5 py-8 mt-5">
           <div className="flex items-center justify-around">
             <div className="text-center">
-              <p className="text">ALEO算力（CS）</p>
+              <p className="text">{t("black.hashrate")}</p>
               <p className="mt-4 text-base">{data?.Computing_power}</p>
             </div>
             <div className="text-center">
-              <p className="text">个人销毁</p>
+              <p className="text">{t("black.destroy")}</p>
               <p className="mt-4 text-base">{data?.Personal_Destruction}</p>
             </div>
           </div>
@@ -57,13 +60,13 @@ const Black = () => {
           </Button> */}
         </div>
         <div className="mt-10 mb-5 text-base">
-          <span className="titleBg px-10 py-2">排行</span>
+          <span className="titleBg px-10 py-2">{t("black.ranking")}</span>
         </div>
         <div className="border px-5 py-8 mt-5 text-white">
           <div className="flex items-center justify-between">
-            <span>时间</span>
-            <span>数量</span>
-            <span>地址</span>
+            <span>{t("black.time")}</span>
+            <span>{t("black.amount")}</span>
+            <span>{t("black.address")}</span>
           </div>
           <div className="text text-sm mt-4">
             {data?.rankings.length > 0 ? (
@@ -83,26 +86,20 @@ const Black = () => {
               </div>
             ) : (
               <div className="h-20 flex items-center justify-center">
-                无数据
+                {t("black.noData")}
               </div>
             )}
           </div>
         </div>
         <div className="mt-10 mb-5 text-base">
-          <span className="titleBg px-10 py-2">规则介绍</span>
+          <span className="titleBg px-10 py-2">{t("black.rule")}</span>
         </div>
         <div className="border px-5 py-8 mt-5 text-left">
           <div className="flex items-center">
-            <div className="text-base w-32 mr-5">黑洞獲利</div>
-            <div className="w">
-              5萬枚 AleoX 起往黑洞打入 加權分配 60萬 CCS Aleo 礦機算力
-            </div>
+            <div className="text-base w-32 mr-5">{t("black.rule1")}</div>
+            <div className="w">{t("black.rule2")}</div>
           </div>
-          <div className="mt-5 text-sm">
-            例如: 第1天有10人,每人往黑洞打入5萬枚 AleoX那麽就由這10人分配 60萬
-            CCS Aleo 礦機算力 第2天如果有50人,往黑洞打入AleoX那麽就由這50人分配
-            60萬 CCS Aleo 礦機算力,以此類推...
-          </div>
+          <div className="mt-5 text-sm">{t("black.rule3")}</div>
         </div>
       </div>
     </div>

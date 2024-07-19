@@ -2,21 +2,13 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 import en from "./en.json";
-import zhTW from "./zh-TW.json"
-import ko from "./ko.json";
-import vi from "./vi.json";
+import zhTW from "./zh.json"
 
 export const resources = {
   en: {
     translation: en,
   },
-  ko: {
-    translation: ko,
-  },
-  vi: {
-    translation: vi,
-  },
-  "zh-TW": {
+  zh: {
     translation: zhTW,
   }
 };
@@ -28,7 +20,6 @@ for (let key in resources) {
 }
 
 console.log('window.navigator.language', window.navigator.language)
-
 i18n.use(initReactI18next).init({
   resources,
   lng: localStorage.getItem("lang")
