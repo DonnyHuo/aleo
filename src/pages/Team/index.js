@@ -4,7 +4,7 @@ const Team = () => {
   const { t } = useTranslation();
   return (
     <div className="contentHome text-white">
-      <div className="text-center my-5 text-lg">{t("team.myTeam")}</div>
+      <div className="text-center my-5 text-base">{t("team.myTeam")}</div>
       <div className="border mx-5 p-5 text-center">
         <div className="flex items-center justify-between text-sm mb-7">
           <span className="w-1/4 text-left">{t("team.time")}</span>
