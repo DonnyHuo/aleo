@@ -124,12 +124,7 @@ export const netWorkNow = async () => {
  * @param  {...any} params 传入的参数
  * @returns promise
  */
-export async function getContract(
-  contractAddress,
-  abi,
-  funcName,
-  ...params
-) {
+export async function getContract(contractAddress, abi, funcName, ...params) {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const contract = new ethers.Contract(contractAddress, abi, provider);
   return new Promise((resolve, reject) => {
@@ -145,7 +140,6 @@ export async function getContract(
     );
   });
 }
-
 
 /**
  * 写入合约方法
@@ -260,7 +254,7 @@ export async function getWriteContractLoad(
             .getTransactionReceipt(response.hash)
             .then((receipt) => {
               if (receipt) {
-                if (receipt.logs.length) {
+                if (receipt.status * 1) {
                   setTimeout(() => {
                     resolve(response);
                   }, 2000);
