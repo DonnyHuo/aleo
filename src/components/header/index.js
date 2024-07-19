@@ -1,24 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  useWeb3Modal,
-  useWeb3ModalAccount,
-  useWeb3ModalProvider,
-  useDisconnect,
-} from "@web3modal/ethers5/react";
-import {
-  shortStr,
-  getContract,
-  getWriteContractLoad,
-  chainList,
-  checkNetWork,
-  sign,
-} from "../../utils";
-import { Drawer, notification, Button, Modal, Popover, message } from "antd";
+import { shortStr } from "../../utils";
+import { Drawer, Modal, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import erc20Abi from "../../asserts/abi/erc20Abi.json";
 import { ethers } from "ethers";
-import { useInterval, useTimeout } from "ahooks";
 import { useTranslation } from "react-i18next";
 import http from "../../request";
 import md5 from "crypto-js/md5";
@@ -31,22 +16,27 @@ const Header = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const logoIcon = require("../../asserts/imgs/logo.png");
-  const { address, chainId, isConnected } = useWeb3ModalAccount();
-
-  const { open } = useWeb3Modal();
 
   const [openLang, setOpenLang] = useState(false);
   const langOpenChange = (value) => {
     setOpenLang(value);
   };
+  
 
   const [currentLang, setCurrentLang] = useState(i18n.language);
 
-  const selectNetworkIcon = (chainId) => {
-    return chainList.filter((list) => list.chainId == chainId)[0];
-  };
-
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  const getChainId = async () => {
+    const chainId = await window.ethereum.request({ method: "eth_chainId" });
+    console.log('chainId', chainId*1)
+    if (chainId*1 !== 56) {
+      console.log('1111')
+    }
+  };
+  useEffect(()=>{
+    getChainId()
+  },[]) 
 
   const showDrawer = () => {
     setOpenDrawer(true);
@@ -58,12 +48,7 @@ const Header = () => {
 
   // get userID fun
   const dispatch = useDispatch();
-  const inviteContract = useSelector((state) => state.inviteContract);
-
-  const reModalOpen = useSelector(
-    (state) => state.reModalOpen,
-    (pre, next) => pre === next
-  );
+  const address = useSelector((state) => state.address);
 
   const [showList, setShowList] = useState(false);
 
@@ -154,26 +139,24 @@ const Header = () => {
 
   // 获取签名
   const sigFun = async () => {
-    if (!localStorage.getItem("sign") || model) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-      const addr = address.toLowerCase();
+    const addr = address.toLowerCase();
 
-      const message = md5(addr + Date.now()).toString();
+    const message = md5(addr + Date.now()).toString();
 
-      const result = await provider.send("personal_sign", [q(message), addr]);
+    const result = await provider.send("personal_sign", [q(message), addr]);
 
-      console.log("result:", addr, message, result);
-      loginFun(message, result);
-    }
+    console.log("result:", addr, message, result);
+    loginFun(message, result);
   };
 
   const [invitecode, setInvitecode] = useState("");
 
-  useEffect(()=>{
-    const invitecode = location.search.split('=')[1]
-    address && setInvitecode(invitecode)
-  },[address])
+  useEffect(() => {
+    const invitecode = location.search.split("=")[1];
+    address && setInvitecode(invitecode);
+  }, [address]);
 
   const loginFun = (msg, sign) => {
     http
@@ -187,10 +170,9 @@ const Header = () => {
       })
       .then((res) => {
         if (res.data.code == 200) {
-          // http.defaults.headers.common["Authorization"] = res.data.data.token;
           if (res.data.data.token) {
-            localStorage.setItem("sign", res.data.data.token);
-            window.location.reload();
+            dispatch({ type: "CHANGE_TOKEN", payload: res.data.data.token });
+            setModel(false);
           } else {
             messageApi.open({
               type: "error",
@@ -198,25 +180,25 @@ const Header = () => {
               duration: 5,
             });
           }
-        } else {
-          localStorage.setItem("sign", "");
         }
       })
       .catch((err) => {
         console.log(err);
-        localStorage.setItem("sign", "");
       });
   };
 
-  // useEffect(() => {
-  //   window.ethereum.on("accountsChanged", () => {
-  //     window.localStorage.setItem("sign", "");
-  //     address && IsExists()
-  //   });
-  // }, [address]);
+  useEffect(() => {
+    window.ethereum.on("accountsChanged", (accounts) => {
+      dispatch({ type: "CHANGE_ADDRESS", payload: accounts[0] });
+      dispatch({ type: "CHANGE_TOKEN", payload: "" });
+    });
+  }, [address]);
 
-  const change = () => {
-    dispatch({ type: "CHANGE_USER", payload: Math.random() });
+  const connectWallet = async () => {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    dispatch({ type: "CHANGE_ADDRESS", payload: accounts[0] });
   };
 
   // 是否注册过
@@ -262,43 +244,6 @@ const Header = () => {
       {contextHolder}
 
       <div className="flex items-center">
-        {isConnected && (
-          <button
-            className={`btnStyle p-2 text-sm mr-2 flex items-center border ${
-              !selectNetworkIcon(chainId) ? "border-red-700" : "_border"
-            }`}
-            onClick={() => open({ view: "Networks" })}
-          >
-            {selectNetworkIcon(chainId) ? (
-              <img
-                className="w-5"
-                src={selectNetworkIcon(chainId)?.url}
-                alt=""
-              />
-            ) : (
-              <>
-                <img
-                  className="w-5 _hiddenP"
-                  src={require("../../asserts/imgs/warning.png")}
-                  alt=""
-                />
-
-                <Popover
-                  content={t("header.NetworkUnsupported")}
-                  trigger="hover"
-                  placement="bottom"
-                  color={"#1C172A"}
-                  overlayClassName="wrongNetwork"
-                >
-                  <span className="px-2 text-red-500 _hiddenM">
-                    {t("header.WrongNetwork")}
-                  </span>
-                </Popover>
-              </>
-            )}
-          </button>
-        )}
-
         <button
           className={`btnStyle rounded-xl p-2 md:pl-4 md:pr-4 text-sm ${
             address ? "_borderW" : "pl-4 pr-4"
@@ -314,7 +259,7 @@ const Header = () => {
               <span className="pl-2">{shortStr(address, 5, 4)}</span>
             </div>
           ) : (
-            <span className="text-sm" onClick={() => open()}>
+            <span className="text-sm" onClick={() => connectWallet()}>
               {t("header.connectWallet")}
             </span>
           )}
@@ -454,8 +399,12 @@ const Header = () => {
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
-            <a className="ml-6 mr-6 block" href="https://aleo.org" target="_black">
-            <div className="flex items-center">
+            <a
+              className="ml-6 mr-6 block"
+              href="https://aleo.org"
+              target="_black"
+            >
+              <div className="flex items-center">
                 <img
                   className="w-5"
                   src={require("../../asserts/imgs/website.png")}
@@ -510,7 +459,7 @@ const Header = () => {
               href="https://t.me/AleoXClubzGroup"
               target="_black"
             >
-             <div className="flex items-center">
+              <div className="flex items-center">
                 <img
                   className="w-5"
                   src={require("../../asserts/imgs/server.png")}

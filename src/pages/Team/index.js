@@ -1,7 +1,11 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const Team = () => {
   const { t } = useTranslation();
+  const address = useSelector((state) => state.address);
+
+  
   return (
     <div className="contentHome text-white">
       <div className="text-center my-5 text-base">{t("team.myTeam")}</div>

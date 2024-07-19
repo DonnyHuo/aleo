@@ -1,9 +1,4 @@
 import { Button, message } from "antd";
-import {
-  useWeb3ModalAccount,
-  useDisconnect,
-  useWeb3Modal,
-} from "@web3modal/ethers5/react";
 import { useState, useEffect } from "react";
 import http from "../../request";
 import { useInterval } from "ahooks";
@@ -11,11 +6,12 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import copy from "copy-to-clipboard";
+import { useSelector } from "react-redux";
 
 const Invite = () => {
   const { t } = useTranslation();
 
-  const { address } = useWeb3ModalAccount();
+  const address = useSelector((state) => state.address);
 
   const [data, setData] = useState();
   const getInfo = () => {
@@ -49,14 +45,25 @@ const Invite = () => {
             {t("navigate.navigate7")}
           </button>
           <Link to="/team">
-            <button className="border px-10 py-2 ml-6">{t('team.myTeam')}</button>
+            <button className="border px-10 py-2 ml-6">
+              {t("team.myTeam")}
+            </button>
           </Link>
         </div>
         <div className="absolute bottom-20 w-full">
           {contextHolder}
           <div className="text text-white text-sm px-5 flex items-center justify-between border p-5 m-5">
             <div className="flex items-center justify-between">
-              <div className="w-3/4" style={{overflow: 'clip',  textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{data?.invitecode}</div>
+              <div
+                className="w-3/4"
+                style={{
+                  overflow: "clip",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {data?.invitecode}
+              </div>
               <img
                 className="w-4 ml-2"
                 src={require("../../asserts/imgs/copy.png")}

@@ -1,18 +1,14 @@
 import { Button } from "antd";
-import {
-  useWeb3ModalAccount,
-  useDisconnect,
-  useWeb3Modal,
-} from "@web3modal/ethers5/react";
 import { useState, useEffect } from "react";
 import http from "../../request";
 import { useInterval } from "ahooks";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const Black = () => {
   const { t } = useTranslation();
 
-  const { address } = useWeb3ModalAccount();
+  const address = useSelector((state) => state.address);
 
   const [data, setData] = useState();
   const getInfo = () => {
@@ -40,9 +36,7 @@ const Black = () => {
           src={require("../../asserts/imgs/logo.png")}
         />
         <div className="mt-10 mb-5 text-base">
-          <span className=" titleBg px-10 py-2">
-            {t("black.title")}
-          </span>
+          <span className=" titleBg px-10 py-2">{t("black.title")}</span>
           <p className="mt-2">{data?.total_amount}</p>
         </div>
         <div className="border px-5 py-8 mt-5">

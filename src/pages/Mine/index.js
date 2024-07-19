@@ -2,29 +2,26 @@ import { Modal, Button, message } from "antd";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import http from "../../request";
-import {
-  useWeb3ModalAccount,
-  useDisconnect,
-  useWeb3Modal,
-} from "@web3modal/ethers5/react";
 import { getWriteContractLoad } from "../../utils";
 import claimRewardAbi from "../../asserts/abi/claimRewards.json";
 import { useInterval } from "ahooks";
 import { useTranslation } from "react-i18next";
-
+import { useSelector, useDispatch } from "react-redux";
 
 const Mine = () => {
   const { t } = useTranslation();
-  const { address } = useWeb3ModalAccount();
-  const { disconnect } = useDisconnect();
-  const { open } = useWeb3Modal();
+  const address = useSelector((state) => state.address);
+  const token = useSelector((state) => state.token);
+
   const [data, setData] = useState({
     symbol: [],
   });
+  const dispatch = useDispatch();
 
   const [raiseData, setRaiseData] = useState();
 
   const [model, setModel] = useState(false);
+
 
   const getInfo = () => {
     http
@@ -46,11 +43,11 @@ const Mine = () => {
       });
   };
   useEffect(() => {
-    address && getInfo();
-  }, [address]);
+    token && getInfo();
+  }, [token]);
 
   useInterval(() => {
-    address && getInfo();
+    token && getInfo();
   }, 5000);
 
   const handleCancel = () => {
@@ -168,6 +165,13 @@ const Mine = () => {
       });
   };
 
+  const connectWallet = async () => {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    dispatch({ type: "CHANGE_ADDRESS", payload: accounts[0] });
+  };
+
   return (
     <div className="contentHome">
       <div className="text-white text-left p-5">
@@ -241,14 +245,17 @@ const Mine = () => {
         {address ? (
           <button
             className="text-white border py-2 px-10"
-            onClick={() => disconnect()}
+            onClick={() => {
+              dispatch({ type: "CHANGE_ADDRESS", payload: "" });
+              dispatch({ type: "CHANGE_TOKEN", payload: "" });
+            }}
           >
             {t("header.loginOut")}
           </button>
         ) : (
           <button
             className="text-white border py-2 px-10"
-            onClick={() => open()}
+            onClick={() => connectWallet()}
           >
             {t("header.connectWallet")}
           </button>

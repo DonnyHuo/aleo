@@ -1,6 +1,6 @@
 const initState = {
   address: "",
-  userId: '',
+  token: '',
   reModalOpen: false,
   supplyModel: false,
   withdrawModel: false,
@@ -17,10 +17,10 @@ const reducer = (state = initState, action) => {
         address: action.payload,
       };
 
-    case "CHANGE_USER":
+    case "CHANGE_TOKEN":
       return {
         ...state,
-        userId: action.payload,
+        token: action.payload,
       };
     case "CHANGE_REMODAL":
       return {

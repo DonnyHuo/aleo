@@ -2,20 +2,16 @@ import { ethers } from "ethers";
 import { Progress, message } from "antd";
 import { useEffect, useState } from "react";
 import http from "../../request";
-import {
-  useWeb3ModalAccount,
-  useWeb3ModalProvider,
-} from "@web3modal/ethers5/react";
 import { getWriteContractLoad, getContract } from "../../utils";
 import erc20Abi from "../../asserts/abi/erc20Abi.json";
 import { useInterval } from "ahooks";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const Raise = () => {
   const { t } = useTranslation();
-  const { address } = useWeb3ModalAccount();
-  const { walletProvider } = useWeb3ModalProvider();
-
+  const address = useSelector((state) => state.address);
+  const token = useSelector((state) => state.token);
   const [messageApi, contextHolder] = message.useMessage();
 
   const [data, setData] = useState({
@@ -44,11 +40,11 @@ const Raise = () => {
   };
 
   useEffect(() => {
-    address && getInfo();
-  }, [address]);
+     token && getInfo();
+  }, [token]);
 
   useInterval(() => {
-    address && getInfo();
+    token && getInfo();
   }, 5000);
 
   const transfer = async (amount) => {

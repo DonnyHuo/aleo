@@ -1,19 +1,15 @@
 import axios from "axios";
-import {
-  useWeb3Modal,
-  useWeb3ModalAccount,
-  useWeb3ModalProvider,
-  useDisconnect,
-} from "@web3modal/ethers5/react";
+import store from "../store";
 
 const http = axios.create({
   baseURL: "https://aleox.co/api/",
   timeout: 10000,
-  headers: { Authorization: localStorage.getItem("sign") },
 });
 
 http.interceptors.request.use(
   (req) => {
+    const token = store.getState().token;
+    req.headers['Authorization'] = token;
     return req;
   },
   (err) => {
