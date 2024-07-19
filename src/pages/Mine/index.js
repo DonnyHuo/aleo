@@ -158,6 +158,7 @@ const Mine = () => {
       })
       .catch((err) => {
         setLoading(false);
+        setModel(false)
         console.log(err);
         messageApi.open({
           type: "error",
