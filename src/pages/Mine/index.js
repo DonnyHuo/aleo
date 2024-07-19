@@ -127,10 +127,10 @@ const Mine = () => {
     _nonce,
     _signature
   ) => {
-    let overrides = {
-      gasLimit: 100000,
-      gasPrice: ethers.utils.parseUnits("10", "gwei"),
-    };
+    // let overrides = {
+    //   gasLimit: 100000,
+    //   gasPrice: ethers.utils.parseUnits("10", "gwei"),
+    // };
     getWriteContractLoad(
       "0x6CaB4b5404126EC50922F565F165C5225B914588",
       claimRewardAbi,
@@ -140,11 +140,12 @@ const Mine = () => {
       _endTime,
       _nonce,
       _signature,
-      overrides
+      // overrides
     )
       .then((res) => {
         console.log(res);
         setLoading(false);
+        setModel(false)
         messageApi.open({
           type: "success",
           content: "提取成功",
