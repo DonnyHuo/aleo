@@ -152,7 +152,7 @@ const Mine = () => {
         setModel(false)
         messageApi.open({
           type: "success",
-          content: t('withDrawS'),
+          content: t('mine.withDrawS'),
           duration: 5,
         });
       })
@@ -161,7 +161,7 @@ const Mine = () => {
         console.log(err);
         messageApi.open({
           type: "error",
-          content: t('withDrawF'),
+          content: t('mine.withDrawF'),
           duration: 5,
         });
       });
