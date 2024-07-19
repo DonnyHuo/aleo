@@ -14,10 +14,21 @@ const Mine = () => {
     symbol: [],
   });
 
+  const [raiseData, setRaiseData] = useState()
+
   const [model, setModel] = useState(false);
 
   const getInfo = () => {
     http
+      .get("/Aleo/RaisePage")
+      .then((res) => {
+        setRaiseData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      http
       .get("/Aleo/UserCenter")
       .then((res) => {
         setData(res.data.data);
@@ -186,7 +197,7 @@ const Mine = () => {
               />
               <span>总募集量</span>
             </div>
-            <span>21312312</span>
+            <span>{raiseData?.raise.total}</span>
           </div>
           <div className="flex items-center justify-between mt-5">
             <div className="flex items-center">
@@ -196,7 +207,7 @@ const Mine = () => {
               />
               <span>预计募集</span>
             </div>
-            <span>21312312</span>
+            <span>{raiseData?.raise.total}</span>
           </div>
           <div className="flex items-center justify-between mt-5">
             <div className="flex items-center">
@@ -206,7 +217,7 @@ const Mine = () => {
               />
               <span>已完成量</span>
             </div>
-            <span>212.312</span>
+            <span>{raiseData?.raise.raised}</span>
           </div>
         </div>
       </div>
