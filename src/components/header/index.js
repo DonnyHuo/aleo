@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { shortStr } from "../../utils";
 import { Drawer, Modal, message } from "antd";
@@ -51,6 +51,7 @@ const Header = () => {
   // get userID fun
   const dispatch = useDispatch();
   const address = useSelector((state) => state.address);
+  const token = useSelector((state) => state.token);
 
   const [showList, setShowList] = useState(false);
 
@@ -226,7 +227,7 @@ const Header = () => {
 
   useEffect(() => {
     address && IsExists();
-  }, [address]);
+  }, [address]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleOk = () => {
     setModel(false);
@@ -377,6 +378,26 @@ const Header = () => {
                   }
                 />
                 <span className="ml-2 pt-1">{t("navigate.navigate2")}</span>
+              </div>
+            </Link>
+          </p>
+          <p className="pt-2 pb-5" onClick={onClose}>
+            <Link
+              className={`ml-6 mr-6  flex items-center justify-between ${
+                location.pathname === "/black" ? "activeTitle" : ""
+              }`}
+              to="/black"
+            >
+              <div className="flex items-center">
+                <img
+                  className="w-5"
+                  src={
+                    location.pathname === "/black"
+                      ? require("../../asserts/imgs/powerActive.png")
+                      : require("../../asserts/imgs/power.png")
+                  }
+                />
+                <span className="ml-2 pt-1">{t("footer.tab2")}</span>
               </div>
             </Link>
           </p>
