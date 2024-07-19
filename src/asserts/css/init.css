@@ -816,6 +816,7 @@ input {
   color: #ffc55f;
 }
 .ant-message {
+  z-index: 4000;
   top: 50% !important;
 }
 .ant-message .ant-message-notice-wrapper .ant-message-notice-content {

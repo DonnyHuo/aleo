@@ -18,7 +18,7 @@ import { Drawer, notification, Button, Modal, Popover, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import erc20Abi from "../../asserts/abi/erc20Abi.json";
 import { ethers } from "ethers";
-import { useInterval } from "ahooks";
+import { useInterval, useTimeout } from "ahooks";
 import { useTranslation } from "react-i18next";
 import http from "../../request";
 import md5 from "crypto-js/md5";
@@ -159,6 +159,8 @@ const Header = () => {
     );
   };
 
+  const [model, setModel] = useState(false);
+
   // 获取签名
   const sigFun = async () => {
     if (!localStorage.getItem("sign") || model) {
@@ -209,15 +211,20 @@ const Header = () => {
         localStorage.setItem("sign", "");
       });
   };
+
   useEffect(() => {
-    address && sigFun();
-  }, address);
+    window.ethereum.on("accountsChanged", () => {
+      window.localStorage.setItem("sign", "");
+      setTimeout(() => {
+        window.location.reload()
+      }, 500);
+    });
+  }, [address]);
 
   const change = () => {
     dispatch({ type: "CHANGE_USER", payload: Math.random() });
   };
 
-  const [model, setModel] = useState(false);
   // 是否注册过
   const IsExists = () => {
     http
@@ -231,6 +238,7 @@ const Header = () => {
           setModel(true);
         } else {
           setModel(false);
+          sigFun();
         }
       })
       .catch((err) => {
@@ -327,7 +335,7 @@ const Header = () => {
         </div>
       </div>
       <Modal
-        title={t('header.register')}
+        title={t("header.register")}
         destroyOnClose={true}
         centered
         maskClosable={false}
@@ -349,7 +357,7 @@ const Header = () => {
           <div className="text-center">
             <input
               className="w-full h-12 bg-transparent border px-4"
-              placeholder={t('header.invite')}
+              placeholder={t("header.invite")}
               type="text"
               value={invitecode}
               onChange={(e) => setInvitecode(e.target.value)}
@@ -360,7 +368,7 @@ const Header = () => {
                 address && sigFun();
               }}
             >
-              {t('header.registerI')}
+              {t("header.registerI")}
             </button>
           </div>
         </div>

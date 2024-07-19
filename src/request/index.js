@@ -1,4 +1,10 @@
 import axios from "axios";
+import {
+  useWeb3Modal,
+  useWeb3ModalAccount,
+  useWeb3ModalProvider,
+  useDisconnect,
+} from "@web3modal/ethers5/react";
 
 const http = axios.create({
   baseURL: "https://aleox.co/api/",
