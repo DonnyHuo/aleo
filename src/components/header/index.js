@@ -152,45 +152,29 @@ const Header = () => {
         {langArr.map((list, index) => {
           return (
             <div key={list}>
-              {!isMobile ? (
-                <div className="text-center _langList">
-                  <button
-                    className={`rounded-md px-2 h-8 m-2 ${
-                      i18n.language == list && "active"
-                    }`}
-                    onClick={() => {
-                      setOpenLang(false);
-                      setCurrentLang(list);
-                      i18n.changeLanguage(list);
-                      window.localStorage.setItem("lang", list);
-                    }}
-                  >
-                    {showLang(list)}
-                  </button>
+              <div className="text-left _text text-sm">
+                <div
+                  className={
+                    "flex item-center justify-between rounded-md px-4 h-8 m-2"
+                  }
+                  onClick={() => {
+                    setOpenLang(false);
+                    setCurrentLang(list);
+                    i18n.changeLanguage(list);
+                    setOpenDrawer(false)
+                    window.localStorage.setItem("lang", list);
+                  }}
+                >
+                  <span>{showLang(list)}</span>
+                  {i18n.language == list && (
+                    <img
+                      className="w-5 h-5"
+                      src={require("../../asserts/imgs/selected.png")}
+                    />
+                  )}
                 </div>
-              ) : (
-                <div className="text-left _text text-sm">
-                  <div
-                    className={
-                      "flex item-center justify-between rounded-md px-4 h-8 m-2"
-                    }
-                    onClick={() => {
-                      setOpenLang(false);
-                      setCurrentLang(list);
-                      i18n.changeLanguage(list);
-                      window.localStorage.setItem("lang", list);
-                    }}
-                  >
-                    <span>{showLang(list)}</span>
-                    {i18n.language == list && (
-                      <img
-                        className="w-5 h-5"
-                        src={require("../../asserts/imgs/selected.png")}
-                      />
-                    )}
-                  </div>
-                </div>
-              )}
+              </div>
+              
             </div>
           );
         })}
@@ -435,8 +419,7 @@ const Header = () => {
               href="https://t.me/AleoXClubzGroup"
               target="_black"
             >
-
-            <span>{t("navigate.navigate6")}</span>
+              <span>{t("navigate.navigate6")}</span>
             </a>
           </p>
           <p
