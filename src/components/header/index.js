@@ -343,14 +343,9 @@ const Header = () => {
             </Link>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
-            <Link
-              className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/liquidation" ? "activeTitle" : ""
-              }`}
-              to="/"
-            >
+            <a  className="ml-6 mr-6" href="https://aleo.org" target="_black">
               <span>官网</span>
-            </Link>
+            </a>
           </p>
           <p className="pt-2 pb-5" onClick={onClose}>
             <Link
