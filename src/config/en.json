@@ -43,7 +43,9 @@
     "connectWallet": "Connect Wallet",
     "loginOut": "Logout",
     "Language": "Language",
-    "tips":"The invitation code is incorrect"
+    "tips": "The invitation code is incorrect",
+    "copyS": "Copied successfully",
+    "invitation": "My invitation code"
   },
   "mine": {
     "asserts": "My Assets",
