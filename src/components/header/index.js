@@ -161,7 +161,7 @@ const Header = () => {
 
   // 获取签名
   const sigFun = async () => {
-    if (!localStorage.getItem("sign")) {
+    if (!localStorage.getItem("sign") || model) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
       const addr = address.toLowerCase();
@@ -174,7 +174,8 @@ const Header = () => {
       loginFun(message, result);
     }
   };
-  const invitecode = useLocation().search.split("=")[1];
+
+  const [invitecode, setInvitecode] = useState("");
 
   const loginFun = (msg, sign) => {
     http
@@ -183,7 +184,7 @@ const Header = () => {
           address: address.toLowerCase(),
           msg: msg,
           sign: sign,
-          invitecode,
+          invitecode: invitecode,
         },
       })
       .then((res) => {
@@ -208,13 +209,44 @@ const Header = () => {
         localStorage.setItem("sign", "");
       });
   };
-
   useEffect(() => {
     address && sigFun();
-  }, [address]);
+  }, address);
 
   const change = () => {
     dispatch({ type: "CHANGE_USER", payload: Math.random() });
+  };
+
+  const [model, setModel] = useState(false);
+  // 是否注册过
+  const IsExists = () => {
+    http
+      .get("/IsExists", {
+        params: {
+          address: address.toLowerCase(),
+        },
+      })
+      .then((res) => {
+        if (!(res.data.data.is_exists * 1)) {
+          setModel(true);
+        } else {
+          setModel(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    address && IsExists();
+  }, address);
+
+  const handleOk = () => {
+    setModel(false);
+  };
+  const handleCancel = () => {
+    setModel(false);
   };
 
   return (
@@ -294,6 +326,45 @@ const Header = () => {
           <img className="w-5" src={require("../../asserts/imgs/menu.png")} />
         </div>
       </div>
+      <Modal
+        title={t('header.register')}
+        destroyOnClose={true}
+        centered
+        maskClosable={false}
+        footer={false}
+        closeIcon={
+          <img
+            className="w-6 mt-2 mr-2"
+            src={require("../../asserts/imgs/closeModal.png")}
+            alt=""
+          />
+        }
+        width={450}
+        zIndex={3000}
+        open={model}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <div>
+          <div className="text-center">
+            <input
+              className="w-full h-12 bg-transparent border px-4"
+              placeholder={t('header.invite')}
+              type="text"
+              value={invitecode}
+              onChange={(e) => setInvitecode(e.target.value)}
+            />
+            <button
+              className="mt-5 border px-10 py-2"
+              onClick={() => {
+                address && sigFun();
+              }}
+            >
+              {t('header.registerI')}
+            </button>
+          </div>
+        </div>
+      </Modal>
       <Drawer
         width={"100vw"}
         closeIcon={false}

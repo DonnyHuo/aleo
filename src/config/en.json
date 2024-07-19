@@ -45,7 +45,10 @@
     "Language": "Language",
     "tips": "The invitation code is incorrect",
     "copyS": "Copied successfully",
-    "invitation": "My invitation code"
+    "invitation": "My invitation code",
+    "invite": "Please enter the invitation code",
+    "register": "Register",
+    "registerI": "Register signature"
   },
   "mine": {
     "asserts": "My Assets",

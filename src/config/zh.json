@@ -45,7 +45,10 @@
     "Language": "语言",
     "tips":"邀请码不正确",
     "copyS":"复制成功",
-    "invitation": "我的邀请码"
+    "invitation": "我的邀请码",
+    "invite": "请输入邀请码",
+    "register": "注册",
+    "registerI": "注册签名"
   },
   "mine": {
     "asserts": "我的资产",
