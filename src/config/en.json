@@ -55,8 +55,8 @@
     "balance": "Balance",
     "tips1": "Please enter the correct amount",
     "tips2": "Please enter the correct amount",
-    "withDrawS": "WithDraw Success",
-    "withDrawF": "WithDraw Failed"
+    "withDrawS": "Withdraw Success",
+    "withDrawF": "Withdraw Failed"
   },
   "black": {
     "title": "Total AleoX Burned Across Network",
