@@ -8,6 +8,7 @@ import {
 } from "@web3modal/ethers5/react";
 import { getWriteContractLoad, getContract } from "../../utils";
 import erc20Abi from "../../asserts/abi/erc20Abi.json";
+import { useInterval } from "ahooks";
 
 const Raise = () => {
   const { address } = useWeb3ModalAccount();
@@ -44,6 +45,8 @@ const Raise = () => {
   useEffect(() => {
     address && getInfo();
   }, address);
+
+  useInterval(()=>{getInfo()}, 5000)
 
   const transfer = async (amount) => {
     console.log("usdtAddress", usdtAddress);
@@ -129,7 +132,7 @@ const Raise = () => {
           </div>
           <div>
             {data?.raise.raised
-              ? (data?.raise.raised * 100) / (data?.raise.total * 1).toFixed(2)
+              ? ((data?.raise.raised * 100) / (data?.raise.total * 1)).toFixed(2)
               : "--"}
             %
           </div>
