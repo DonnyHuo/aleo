@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import http from "../../request";
 import md5 from "crypto-js/md5";
 import { resources } from "../../config";
+import queryString from 'query-string';
 
 const Header = () => {
   const location = useLocation();
@@ -157,7 +158,8 @@ const Header = () => {
   const [invitecode, setInvitecode] = useState("");
 
   useEffect(() => {
-    const invitecode = location.search.split("=")[1];
+    const values = queryString.parse(window.location.search);
+    const invitecode = values.invitecode;
     address && setInvitecode(invitecode);
   }, [address]);
 

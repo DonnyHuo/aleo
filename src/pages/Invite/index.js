@@ -57,7 +57,8 @@ const Invite = () => {
         </div>
         <div className="absolute bottom-20 w-full">
           {contextHolder}
-          <div className="text text-white text-sm px-5 flex items-center justify-between border p-5 m-5 h-12">
+          <div className="text-center text-base">{t('inviteCode')}</div>
+          <div className="text text-white text-sm px-5 flex items-center justify-between border p-5 m-2 h-12">
             <div className="flex items-center justify-between">
               <div
                 className="w-4/5 text-white"
