@@ -40,7 +40,7 @@ const Invite = () => {
   };
   return (
     <div className="text-white">
-      <div className="inviteContent">
+      <div className="inviteContent bg-black">
         <div className="flex items-center justify-center pt-10 text-sm">
           <button className="border px-10 py-2">
             {t("navigate.navigate7")}
