@@ -51,12 +51,16 @@ const Invite = () => {
             </button>
           </Link>
         </div>
+        <div className="mt-10 text-center px-10 text-2xl font-extrabold" style={{textShadow: '5px 3px 3px green'}}>
+          <p>{t('team.title')}</p>
+          <p className="mt-2">{t('team.title1')}</p>
+        </div>
         <div className="absolute bottom-20 w-full">
           {contextHolder}
           <div className="text text-white text-sm px-5 flex items-center justify-between border p-5 m-5 h-12">
             <div className="flex items-center justify-between">
               <div
-                className="w-4/5"
+                className="w-4/5 text-white"
                 style={{
                   overflow: "clip",
                   textOverflow: "ellipsis",
