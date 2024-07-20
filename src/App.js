@@ -10,6 +10,10 @@ import About from "./pages/About";
 import Black from "./pages/Black";
 import Invite from "./pages/Invite";
 import Team from "./pages/Team";
+import Pledge from "./pages/Pledge";
+import Computing from "./pages/Computing";
+
+
 
 function App() {
 
@@ -25,6 +29,8 @@ function App() {
           <Route path="/black" element={<Black />}></Route>
           <Route path="/invite" element={<Invite />}></Route>
           <Route path="/team" element={<Team />}></Route>
+          <Route path="/pledge" element={<Pledge />}></Route>
+          <Route path="/computing" element={<Computing />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

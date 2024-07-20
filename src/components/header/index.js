@@ -439,9 +439,9 @@ const Header = () => {
           <p className="pt-2 pb-5" onClick={onClose}>
             <Link
               className={`ml-6 mr-6  flex items-center justify-between ${
-                location.pathname === "/power" ? "activeTitle" : ""
+                location.pathname === "/computing" ? "activeTitle" : ""
               }`}
-              to="/power"
+              to="/computing"
             >
               <div className="flex items-center">
                 <img
