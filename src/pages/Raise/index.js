@@ -40,7 +40,7 @@ const Raise = () => {
   };
 
   useEffect(() => {
-     token && getInfo();
+    token && getInfo();
   }, [token]);
 
   useInterval(() => {
@@ -82,7 +82,7 @@ const Raise = () => {
     } else {
       messageApi.open({
         type: "error",
-        content: t('noBalance'),
+        content: t("noBalance"),
         duration: 5,
       });
     }
@@ -91,7 +91,21 @@ const Raise = () => {
     <div className="contentHome">
       {contextHolder}
       <div className="text-white text-left p-5">
-        <img className="" src={require("../../asserts/imgs/raisebanner.png")} />
+        {/* <img className="" src={require("../../asserts/imgs/raisebanner.png")} /> */}
+        <div>
+          <div className="flex items-center justify-between">
+            <img className="w-1/3 h-32"
+              src={require("../../asserts/imgs/bannerRaise1.png")}
+            />
+            <img className="pl-2 h-32 w-2/3"
+              src={require("../../asserts/imgs/bannerRaise2.png")}
+            />
+          </div>
+          <img
+            className="w-full mt-2"
+            src={require("../../asserts/imgs/bannerRaise3.png")}
+          />
+        </div>
         <div className="text-base mt-10 text-center">
           <span className="titleBg px-10 py-2">{t("raise.title1")}</span>
         </div>
@@ -167,7 +181,7 @@ const Raise = () => {
               </>
             ) : (
               <div className="text-center min-h-20 flex items-center justify-center text-sm">
-                {t('black.noData')}
+                {t("black.noData")}
               </div>
             )}
           </div>
