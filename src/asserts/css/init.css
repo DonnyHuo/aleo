@@ -567,7 +567,6 @@ input {
 
 .contentHome {
   min-height: 100vh;
-  background-color: #0d0705;
   padding: 60px 0;
 }
 .content {
@@ -856,9 +855,19 @@ input {
   .boxList {
     width: 100%;
   }
+  .appContent {
+    background-image: url("../../asserts/imgs/homeBg2.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 200px 100%;
+    background-color: #0d0705;
+  }
   .contentHome {
     min-height: 100vh;
-    background-color: #111111;
+    background-image: url("../../asserts/imgs/homeBg.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: -200px 0;
     padding-top: 60px;
   }
   .content {
