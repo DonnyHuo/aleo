@@ -22,7 +22,6 @@ const Mine = () => {
 
   const [model, setModel] = useState(false);
 
-
   const getInfo = () => {
     http
       .get("/Aleo/RaisePage")
@@ -205,38 +204,44 @@ const Mine = () => {
         </div>
 
         <div className="text-base mt-10 mb-4 text-center">
-          <span className="titleBg px-10 py-2"> {t("mine.raise")}</span>
+          <span className="titleBg px-10 py-2">
+            {t("mine.HashPowerTransfer")}
+          </span>
         </div>
         <div className="border px-4 py-6 text-sm">
           <div className="flex items-center justify-between">
-            <div className="flex items-center ">
+            <div className="flex items-center w-1/2">
               <img
-                className="w-6 mr-2"
-                src={require("../../asserts/imgs/usdt.png")}
+                className="w-10 mr-2"
+                src={require("../../asserts/imgs/ALEOX@2x.png")}
               />
-              <span> {t("mine.total")}</span>
+              <div>
+                <p>ALEOX_EREEZE</p>
+                <p className="text text-sm">{data?.symbol[2]?.amount}</p>
+              </div>
             </div>
-            <span>{raiseData?.raise.total}</span>
+            <img
+                className="w-5 mr-2"
+                src={require("../../asserts/imgs/transfer.png")}
+              />
+            <button className="border px-5 py-1" onClick={()=>message.info(t('mine.NotOpenYet'))}>{t('mine.saveTo')}</button>
           </div>
           <div className="flex items-center justify-between mt-5">
-            <div className="flex items-center">
+            <div className="flex items-center w-1/2">
               <img
-                className="w-6 mr-2"
-                src={require("../../asserts/imgs/usdt.png")}
+                className="w-10 mr-2"
+                src={require("../../asserts/imgs/AELO@2x.png")}
               />
-              <span>{t("mine.expected")}</span>
+              <div>
+                <p>Aleo(cs) </p>
+                <p className="text text-sm">{data?.symbol[1]?.amount}</p>
+              </div>
             </div>
-            <span>{raiseData?.raise.total}</span>
-          </div>
-          <div className="flex items-center justify-between mt-5">
-            <div className="flex items-center">
-              <img
-                className="w-6 mr-2"
-                src={require("../../asserts/imgs/usdt.png")}
+            <img
+                className="w-5 mr-2"
+                src={require("../../asserts/imgs/transfer.png")}
               />
-              <span>{t("mine.finish")}</span>
-            </div>
-            <span>{raiseData?.raise.raised}</span>
+            <button className="border px-5 py-1" onClick={()=>message.info(t('mine.NotOpenYet'))}>{t('mine.saveTo')}</button>
           </div>
         </div>
       </div>

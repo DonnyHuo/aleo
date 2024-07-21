@@ -65,7 +65,11 @@
     "tips1": "請輸入正確的數量",
     "tips2": "請輸入正確的數量",
     "withDrawS": "提取成功",
-    "withDrawF": "提取失敗"
+    "withDrawF": "提取失敗",
+    "HashPowerTransfer": "算力轉存",
+    "saveTo": "轉存",
+    "NotOpenYet": "暫未開放"
+
   },
   "black": {
     "title": "全網黑洞銷毀總量",

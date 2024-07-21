@@ -65,7 +65,10 @@
     "tips1": "Please enter the correct amount",
     "tips2": "Please enter the correct amount",
     "withDrawS": "Withdraw Success",
-    "withDrawF": "Withdraw Failed"
+    "withDrawF": "Withdraw Failed",
+    "HashPowerTransfer": "Hash Power Transfer",
+    "saveTo": "Save to",
+    "NotOpenYet": "Not open yet"
   },
   "black": {
     "title": "Total AleoX Burned Across Network",
