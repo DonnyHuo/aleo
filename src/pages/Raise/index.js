@@ -134,14 +134,14 @@ const Raise = () => {
         />
         <div className="flex items-center justify-between mt-2 text-sm">
           <div className="flex items-center">
-            <img
+            {/* <img
               className="w-6 mr-2"
               src={require("../../asserts/imgs/usdt.png")}
             />
             <span>
               {(data?.raise.raised * 1).toFixed(2)}/
               {(data?.raise.total * 1).toFixed(2)}
-            </span>
+            </span> */}
           </div>
           <div>
             {data?.raise.raised
