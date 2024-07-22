@@ -18,15 +18,15 @@ const Mine = () => {
   });
   const dispatch = useDispatch();
 
-  const [raiseData, setRaiseData] = useState();
+  const [blackData, setBlackData] = useState();
 
   const [model, setModel] = useState(false);
 
   const getInfo = () => {
     http
-      .get("/Aleo/RaisePage")
+      .get("/Aleo/BlackHolePage")
       .then((res) => {
-        setRaiseData(res.data.data);
+        setBlackData(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -234,7 +234,7 @@ const Mine = () => {
               />
               <div>
                 <p>Aleo(cs) </p>
-                <p className="text text-sm">{data?.symbol[1]?.amount}</p>
+                <p className="text text-sm">{blackData?.Computing_power}</p>
               </div>
             </div>
             <img
